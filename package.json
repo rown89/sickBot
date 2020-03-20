@@ -1,0 +1,33 @@
+{
+  "presets": [
+    "@babel/preset-env"
+  ],
+  "name": "sickbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./index.ts",
+  "dependencies": {
+    "@types/node": "^13.9.2",
+    "@types/node-fetch": "^2.5.5",
+    "@types/ws": "^7.2.3",
+    "babel-preset-env": "^1.7.0",
+    "core-util-is": "^1.0.2",
+    "discord.js": "^12.0.2",
+    "dotenv": "^8.2.0",
+    "moment": "^2.24.0",
+    "node-fetch": "^2.6.0",
+    "nodemon": "^2.0.2",
+    "typescript": "^3.8.3",
+    "ws": "^7.2.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/register": "^7.9.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Danilo Mongelli",
+  "license": "ISC"
+}
