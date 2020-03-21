@@ -61,7 +61,7 @@ client.on("ready", (): void => {
         try {
           const result: Array<ItalianLatests> = await italyLatest();
           result.map(item => {
-            message.channel.send(
+            return message.channel.send(
               `${"```>>> Italy Data\n\n" +
                 "Totale casi: " +
                 item.totale_casi +
@@ -114,7 +114,7 @@ client.on("ready", (): void => {
           const result: Array<ItalianRegionLatests> = await italyRegionsLatest();
           result.filter(item => {
             if (item.denominazione_regione.toLowerCase() === requiredRegion) {
-              printResult = item;
+              return printResult = item;
             }
           });
 
