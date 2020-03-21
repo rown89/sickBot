@@ -2,7 +2,7 @@ import "@babel/register";
 import { Message } from "discord.js";
 import { config } from "dotenv";
 import { SickBotClient } from "./src/SickBotClient";
-
+import { color } from "./src/utilities/color";
 import {
   italyLatest,
   italyProvince,
@@ -56,7 +56,8 @@ client.on("ready", (): void => {
       }
 
       if (cmd === "covid") {
-        message.reply(" retrieving Italian stats...");
+        message.reply(" retrieving Italian stats...")
+          .then(sentMessage => sentMessage.delete({timeout: 1800}))
         
         try {
           const result: Array<ItalianLatests> = await italyLatest();
@@ -97,7 +98,6 @@ client.on("ready", (): void => {
                 "```"}`
             );
           });
-          
         } catch (error) {
           message.reply(
             "Some error occurred during the API call on italyLatest. " + error
@@ -107,14 +107,15 @@ client.on("ready", (): void => {
 
       if (message.content.includes(PREFIX + "covid r ")) {
         const requiredRegion = message.content.substring(10).toLowerCase();
-        message.reply(" retrieving " + requiredRegion + " Region data");
+        message.reply(" retrieving " + requiredRegion + " Region data")
+          .then(sentMessage => sentMessage.delete({timeout: 1800}));
         let printResult: any = undefined;
 
         try {
           const result: Array<ItalianRegionLatests> = await italyRegionsLatest();
           result.filter(item => {
             if (item.denominazione_regione.toLowerCase() === requiredRegion) {
-              return printResult = item;
+              return (printResult = item);
             }
           });
 
@@ -166,28 +167,31 @@ client.on("ready", (): void => {
 
       if (message.content.includes(PREFIX + "covid p ")) {
         const requiredProvince = message.content.substring(10).toLowerCase();
-        message.reply(" retrieving " + requiredProvince + " province data");
+        message.reply(" retrieving " + requiredProvince + " province data")
+          .then(sentMessage => sentMessage.delete({timeout: 1800}));
         let printResult: any = undefined;
 
         try {
           const result: Array<ItalianProvinceLatests> = await italyProvinceLatest();
           result.filter(item => {
-            if (item.denominazione_provincia.toLowerCase() === requiredProvince) {
-              return printResult = item;
+            if (
+              item.denominazione_provincia.toLowerCase() === requiredProvince
+            ) {
+              return (printResult = item);
             }
           });
 
           printResult
             ? message.reply(
-                `${"```>>> " +
-                  requiredProvince +
+                `${"**``` >>> " +
+                  color(requiredProvince, "yellow") +
                   " Province Data" +
                   "\n\n" +
                   "Totale casi: " +
                   printResult.totale_casi +
                   "\n\nlast update: " +
                   printResult.data +
-                  "```"}`
+                  "```**"}`
               )
             : message.reply(requiredProvince + " doesn't exist as a Province");
         } catch (error) {
@@ -197,9 +201,10 @@ client.on("ready", (): void => {
         }
       }
 
-      if (message.content.includes(PREFIX + "covid chart radar ")) {
-        message.reply(" Ok, trying to build a Radar Chart");
-      }
+      /* if (message.content.includes(PREFIX + "covid chart radar ")) {
+        message.reply(" Ok, trying to build a Radar Chart")
+        .then(sentMessage => sentMessage.delete({timeout: 1800}));
+      } */
     }
   );
 });
