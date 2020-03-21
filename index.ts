@@ -35,8 +35,10 @@ client.on("ready", (): void => {
     });
   }
 
-  function capitalizeFirstLetter(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+  function capitalizeFirstLetter(str) {
+    return str.replace(/\w\S*/g, function(txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
   }
 
   client.on(
@@ -105,61 +107,57 @@ client.on("ready", (): void => {
       if (message.content.includes(PREFIX + "covid r ")) {
         try {
           const requiredRegion = message.content.substring(10).toLowerCase();
-          const newRequiredRegion = capitalizeFirstLetter(requiredRegion);
-          message.reply(" retrieving " + newRequiredRegion + " Region data");
+          console.log(requiredRegion);
+          message.reply(" retrieving " + requiredRegion + " Region data");
 
           const result: Array<ItalianRegionLatests> = await italyRegionsLatest();
-          let printResult: any = false;
+          let printResult: any = undefined;
 
-          const checkResult = region => {
-            result.filter(item => {
-              if (item.denominazione_regione === region) {
-                return (printResult = item);
-              } else return false;
-            });
+          result.filter(item => {
+            if (item.denominazione_regione.toLowerCase() == requiredRegion) {
+              printResult = item;
+            }
+          });
 
-            printResult
-              ? message.reply(`
-                ${"```>>> " +
-                  region +
-                  " Region Data" +
-                  "\n\n" +
-                  "Totale casi: " +
-                  printResult.totale_casi +
-                  "\n" +
-                  "Totale attualmente positivi: " +
-                  printResult.totale_attualmente_positivi +
-                  "\n" +
-                  "Nuovi attualmente positivi: " +
-                  printResult.nuovi_attualmente_positivi +
-                  "\n" +
-                  "Terapia intensiva: " +
-                  printResult.terapia_intensiva +
-                  "\n" +
-                  "Ricoverati con sintomi: " +
-                  printResult.ricoverati_con_sintomi +
-                  "\n" +
-                  "Totale ospedalizzati: " +
-                  printResult.totale_ospedalizzati +
-                  "\n" +
-                  "Isolamento domiciliare: " +
-                  printResult.isolamento_domiciliare +
-                  "\n" +
-                  "Dimessi guariti: " +
-                  printResult.dimessi_guariti +
-                  "\n" +
-                  "Tamponi: " +
-                  printResult.tamponi +
-                  "\n" +
-                  "Deceduti: " +
-                  printResult.deceduti +
-                  "\n\nlast update: " +
-                  printResult.data +
-                  "```"}`)
-              : message.reply(region + " doesn't exist as a region");
-          };
-
-          checkResult(newRequiredRegion);
+          printResult
+            ? message.reply(`
+              ${"```>>> " +
+                requiredRegion +
+                " Region Data" +
+                "\n\n" +
+                "Totale casi: " +
+                printResult.totale_casi +
+                "\n" +
+                "Totale attualmente positivi: " +
+                printResult.totale_attualmente_positivi +
+                "\n" +
+                "Nuovi attualmente positivi: " +
+                printResult.nuovi_attualmente_positivi +
+                "\n" +
+                "Terapia intensiva: " +
+                printResult.terapia_intensiva +
+                "\n" +
+                "Ricoverati con sintomi: " +
+                printResult.ricoverati_con_sintomi +
+                "\n" +
+                "Totale ospedalizzati: " +
+                printResult.totale_ospedalizzati +
+                "\n" +
+                "Isolamento domiciliare: " +
+                printResult.isolamento_domiciliare +
+                "\n" +
+                "Dimessi guariti: " +
+                printResult.dimessi_guariti +
+                "\n" +
+                "Tamponi: " +
+                printResult.tamponi +
+                "\n" +
+                "Deceduti: " +
+                printResult.deceduti +
+                "\n\nlast update: " +
+                printResult.data +
+                "```"}`)
+            : message.reply(requiredRegion + " doesn't exist as a region");
         } catch (error) {
           message.reply(
             "Some error occurred during the API call on Region. " + error
@@ -170,36 +168,31 @@ client.on("ready", (): void => {
       if (message.content.includes(PREFIX + "covid p ")) {
         try {
           const requiredProvince = message.content.substring(10).toLowerCase();
-          const newRequiredProvince = capitalizeFirstLetter(requiredProvince);
-          message.reply(
-            " retrieving " + newRequiredProvince + " province data"
-          );
+          message.reply(" retrieving " + requiredProvince + " province data");
           const result: Array<ItalianProvinceLatests> = await italyProvinceLatest();
-          let printResult: any = false;
+          let printResult: any = undefined;
 
-          const checkResult = province => {
-            result.filter(item => {
-              if (item.denominazione_provincia === province) {
-                return (printResult = item);
-              } else return false;
-            });
+          result.filter(item => {
+            if (
+              item.denominazione_provincia.toLowerCase() === requiredProvince
+            ) {
+              printResult = item;
+            }
+          });
 
-            printResult
-              ? message.reply(
-                  `${"```>>> " +
-                    province +
-                    " Province Data" +
-                    "\n\n" +
-                    "Totale casi: " +
-                    printResult.totale_casi +
-                    "\n\nlast update: " +
-                    printResult.data +
-                    "```"}`
-                )
-              : message.reply(province + " doesn't exist as a Province");
-          };
-
-          checkResult(newRequiredProvince);
+          printResult
+            ? message.reply(
+                `${"```>>> " +
+                  requiredProvince +
+                  " Province Data" +
+                  "\n\n" +
+                  "Totale casi: " +
+                  printResult.totale_casi +
+                  "\n\nlast update: " +
+                  printResult.data +
+                  "```"}`
+              )
+            : message.reply(requiredProvince + " doesn't exist as a Province");
         } catch (error) {
           message.reply(
             "Some error occurred during the API call on Province. " + error
