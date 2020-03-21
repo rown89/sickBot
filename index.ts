@@ -184,7 +184,7 @@ client.on("ready", (): void => {
           printResult
             ? message.reply(
                 `${"**``` >>> " +
-                  color(requiredProvince, "yellow") +
+                  requiredProvince +
                   " Province Data" +
                   "\n\n" +
                   "Totale casi: " +
