@@ -122,7 +122,7 @@ client.on("ready", (): void => {
             ? message.reply(`
               ${"```>>> " +
                 requiredRegion +
-                " Region Data" +
+                " Region DataX" +
                 "\n\n" +
                 "Totale casi: " +
                 printResult.totale_casi +
