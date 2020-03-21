@@ -57,7 +57,7 @@ client.on("ready", (): void => {
 
       if (cmd === "covid") {
         message.reply(" retrieving Italian stats...")
-          .then(sentMessage => sentMessage.delete({timeout: 1800}))
+          .then(sentMessage => sentMessage.delete({timeout: 2000}))
         
         try {
           const result: Array<ItalianLatests> = await italyLatest();
@@ -108,7 +108,7 @@ client.on("ready", (): void => {
       if (message.content.includes(PREFIX + "covid r ")) {
         const requiredRegion = message.content.substring(10).toLowerCase();
         message.reply(" retrieving " + requiredRegion + " Region data")
-          .then(sentMessage => sentMessage.delete({timeout: 1800}));
+          .then(sentMessage => sentMessage.delete({timeout: 2000}));
         let printResult: any = undefined;
 
         try {
@@ -168,7 +168,7 @@ client.on("ready", (): void => {
       if (message.content.includes(PREFIX + "covid p ")) {
         const requiredProvince = message.content.substring(10).toLowerCase();
         message.reply(" retrieving " + requiredProvince + " province data")
-          .then(sentMessage => sentMessage.delete({timeout: 1800}));
+          .then(sentMessage => sentMessage.delete({timeout: 2000}));
         let printResult: any = undefined;
 
         try {
