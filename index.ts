@@ -35,12 +35,6 @@ client.on("ready", (): void => {
     });
   }
 
-  function capitalizeFirstLetter(str) {
-    return str.replace(/\w\S*/g, function(txt) {
-      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
-  }
-
   client.on(
     "message",
     async (message: Message): Promise<void> => {
@@ -63,58 +57,63 @@ client.on("ready", (): void => {
 
       if (cmd === "covid") {
         message.reply(" retrieving Italian stats...");
-        const result: Array<ItalianLatests> = await italyLatest();
-
-        result.map(item => {
-          message.channel.send(
-            `${"```>>> Italy Data\n\n" +
-              "Totale casi: " +
-              item.totale_casi +
-              "\n" +
-              "Totale attualmente positivi: " +
-              item.totale_attualmente_positivi +
-              "\n" +
-              "Nuovi attualmente positivi: " +
-              item.nuovi_attualmente_positivi +
-              "\n" +
-              "Terapia intensiva: " +
-              item.terapia_intensiva +
-              "\n" +
-              "Ricoverati con sintomi:" +
-              item.ricoverati_con_sintomi +
-              "\n" +
-              "Totale ospedalizzati: " +
-              item.totale_ospedalizzati +
-              "\n" +
-              "Isolamento domiciliare: " +
-              item.isolamento_domiciliare +
-              "\n" +
-              "Dimessi guariti: " +
-              item.dimessi_guariti +
-              "\n" +
-              "Tamponi: " +
-              item.tamponi +
-              "\n" +
-              "Deceduti: " +
-              item.deceduti +
-              "\n\nlast update: " +
-              item.data +
-              "```"}`
+        
+        try {
+          const result: Array<ItalianLatests> = await italyLatest();
+          result.map(item => {
+            message.channel.send(
+              `${"```>>> Italy Data\n\n" +
+                "Totale casi: " +
+                item.totale_casi +
+                "\n" +
+                "Totale attualmente positivi: " +
+                item.totale_attualmente_positivi +
+                "\n" +
+                "Nuovi attualmente positivi: " +
+                item.nuovi_attualmente_positivi +
+                "\n" +
+                "Terapia intensiva: " +
+                item.terapia_intensiva +
+                "\n" +
+                "Ricoverati con sintomi:" +
+                item.ricoverati_con_sintomi +
+                "\n" +
+                "Totale ospedalizzati: " +
+                item.totale_ospedalizzati +
+                "\n" +
+                "Isolamento domiciliare: " +
+                item.isolamento_domiciliare +
+                "\n" +
+                "Dimessi guariti: " +
+                item.dimessi_guariti +
+                "\n" +
+                "Tamponi: " +
+                item.tamponi +
+                "\n" +
+                "Deceduti: " +
+                item.deceduti +
+                "\n\nlast update: " +
+                item.data +
+                "```"}`
+            );
+          });
+          
+        } catch (error) {
+          message.reply(
+            "Some error occurred during the API call on italyLatest. " + error
           );
-        });
+        }
       }
 
       if (message.content.includes(PREFIX + "covid r ")) {
+        const requiredRegion = message.content.substring(10).toLowerCase();
+        message.reply(" retrieving " + requiredRegion + " Region data");
+        let printResult: any = undefined;
+
         try {
-          const requiredRegion = message.content.substring(10).toLowerCase();
-          console.log(requiredRegion);
-          message.reply(" retrieving " + requiredRegion + " Region data");
-
           const result: Array<ItalianRegionLatests> = await italyRegionsLatest();
-          let printResult: any = undefined;
-
           result.filter(item => {
-            if (item.denominazione_regione.toLowerCase() == requiredRegion) {
+            if (item.denominazione_regione.toLowerCase() === requiredRegion) {
               printResult = item;
             }
           });
@@ -166,17 +165,15 @@ client.on("ready", (): void => {
       }
 
       if (message.content.includes(PREFIX + "covid p ")) {
-        try {
-          const requiredProvince = message.content.substring(10).toLowerCase();
-          message.reply(" retrieving " + requiredProvince + " province data");
-          const result: Array<ItalianProvinceLatests> = await italyProvinceLatest();
-          let printResult: any = undefined;
+        const requiredProvince = message.content.substring(10).toLowerCase();
+        message.reply(" retrieving " + requiredProvince + " province data");
+        let printResult: any = undefined;
 
+        try {
+          const result: Array<ItalianProvinceLatests> = await italyProvinceLatest();
           result.filter(item => {
-            if (
-              item.denominazione_provincia.toLowerCase() === requiredProvince
-            ) {
-              printResult = item;
+            if (item.denominazione_provincia.toLowerCase() === requiredProvince) {
+              return printResult = item;
             }
           });
 
