@@ -95,7 +95,7 @@ client.on("ready", (): void => {
           printResult
             ? message.channel.send({
                 embed: covidMessage(
-                  `${requiredRegion.toUpperCase()} - (Region) :`,
+                  `${requiredRegion.toUpperCase()} (Region) :`,
                   0xf8e71c,
                   printResult[0]
                 )
@@ -123,7 +123,7 @@ client.on("ready", (): void => {
           printResult
             ? message.channel.send({
                 embed: covidProvince(
-                  `${requiredProvince.toUpperCase()} - (Region) :`,
+                  `${requiredProvince.toUpperCase()} (Province) :`,
                   0xf8e71c,
                   printResult[0]
                 )
