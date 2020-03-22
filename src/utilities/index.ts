@@ -48,7 +48,6 @@ export const color = (word: string, color: string) => {
 
 export const covidMessage = (title: string, color: number, data: any) => {
   const item = data;
-  console.log("covidMessage:", title, color, data);
   return {
     title: `${title}`,
     color: color,
@@ -59,7 +58,7 @@ export const covidMessage = (title: string, color: number, data: any) => {
       text: "last update " + item.data
     },
     thumbnail: {
-      url: "https://cdn.discordapp.com/embed/avatars/0.png"
+      url: "http://danilomongelli.it/sickBot/assets/COVID-19-Logo.png"
     },
     author: {
       name: "Protezione civile",
@@ -106,7 +105,36 @@ export const covidMessage = (title: string, color: number, data: any) => {
       },
       {
         name: "Deaths",
-        value: `${item.deceduti}`
+        value: `${item.deceduti}\n`
+      }
+    ]
+  };
+};
+
+export const covidProvince = (title: string, color: number, data: any) => {
+  const item = data;
+  return {
+    title: `${title}`,
+    color: color,
+    timestamp: `${item.data}`,
+    footer: {
+      icon_url:
+        "https://r7.hiclipart.com/path/775/178/340/iphone-emoji-apple-clip-art-sick-8d081a33bc88263bd858d457cb8e2640.png",
+      text: "last update " + item.data
+    },
+    thumbnail: {
+      url: "http://danilomongelli.it/sickBot/assets/COVID-19-Logo.png"
+    },
+    author: {
+      name: "Protezione civile",
+      url: "https://github.com/pcm-dpc/COVID-19",
+      icon_url:
+        "https://upload.wikimedia.org/wikipedia/it/thumb/d/d6/Dipartimento_della_Protezione_Civile.svg/600px-Dipartimento_della_Protezione_Civile.svg.png"
+    },
+    fields: [
+      {
+        name: "Total cases",
+        value: `${item.totale_casi}\n`
       }
     ]
   };

@@ -2,7 +2,7 @@ import "@babel/register";
 import { Message, MessageEmbed } from "discord.js";
 import { config } from "dotenv";
 import { SickBotClient } from "./src/SickBotClient";
-import { covidMessage } from "./src/utilities/";
+import { covidMessage, covidProvince } from "./src/utilities/";
 
 import {
   italyLatest,
@@ -69,71 +69,35 @@ client.on("ready", (): void => {
         message
           .reply(" retrieving Italian stats...")
           .then(sentMessage => sentMessage.delete({ timeout: 2000 }));
-
-        const result: Array<ItalianLatests> | any = await italyLatest()
-          .then(item => {
-            //console.log(item);
-            const msg = covidMessage("Italy data :", 0xf8e71c, item[0]);
-            return message.channel
-              .send({ msg })
-              .then(msg => console.log(msg))
-              .catch(err => console.log(err));
-          })
+        try {
+          const result: Array<ItalianLatests> | any = await italyLatest();
+          message.channel.send({ embed: covidMessage("Italy data :", 0xf8e71c, result[0])});
+        } catch (error) {
+          message.reply(
+            "Some error occurred during the API call on Italy. " + error
+          );
+        }
       }
 
       if (message.content.includes(PREFIX + "covid r ")) {
         const requiredRegion = message.content.substring(10).toLowerCase();
         message
-          .reply(" retrieving " + requiredRegion + " Region data")
+          .reply(` retrieving ${requiredRegion.toUpperCase()}  Region data`)
           .then(sentMessage => sentMessage.delete({ timeout: 2000 }));
-        let printResult: any = undefined;
-
         try {
           const result: Array<ItalianRegionLatests> = await italyRegionsLatest();
-          result.filter(item => {
-            if (item.denominazione_regione.toLowerCase() === requiredRegion) {
-              return (printResult = item);
-            }
+          const printResult: any = result.filter(item => {
+            return item.denominazione_regione.toLowerCase() === requiredRegion;
           });
-
           printResult
-            ? message.reply(`
-              ${"```>>> " +
-                requiredRegion +
-                " Region Data" +
-                "\n\n" +
-                "Totale casi: " +
-                printResult.totale_casi +
-                "\n" +
-                "Totale attualmente positivi: " +
-                printResult.totale_attualmente_positivi +
-                "\n" +
-                "Nuovi attualmente positivi: " +
-                printResult.nuovi_attualmente_positivi +
-                "\n" +
-                "Terapia intensiva: " +
-                printResult.terapia_intensiva +
-                "\n" +
-                "Ricoverati con sintomi: " +
-                printResult.ricoverati_con_sintomi +
-                "\n" +
-                "Totale ospedalizzati: " +
-                printResult.totale_ospedalizzati +
-                "\n" +
-                "Isolamento domiciliare: " +
-                printResult.isolamento_domiciliare +
-                "\n" +
-                "Dimessi guariti: " +
-                printResult.dimessi_guariti +
-                "\n" +
-                "Tamponi: " +
-                printResult.tamponi +
-                "\n" +
-                "Deceduti: " +
-                printResult.deceduti +
-                "\n\nlast update: " +
-                printResult.data +
-                "```"}`)
+            ? message.channel
+                .send({
+                  embed: covidMessage(
+                    `${requiredRegion.toUpperCase()} - (Region) :`,
+                    0xf8e71c,
+                    result[0]
+                  )
+                })
             : message.reply(requiredRegion + " doesn't exist as a region");
         } catch (error) {
           message.reply(
@@ -147,30 +111,22 @@ client.on("ready", (): void => {
         message
           .reply(" retrieving " + requiredProvince + " province data")
           .then(sentMessage => sentMessage.delete({ timeout: 2000 }));
-        let printResult: any = undefined;
 
         try {
           const result: Array<ItalianProvinceLatests> = await italyProvinceLatest();
-          result.filter(item => {
-            if (
-              item.denominazione_provincia.toLowerCase() === requiredProvince
-            ) {
-              return (printResult = item);
-            }
+          const printResult = result.filter(item => {
+            item.denominazione_provincia.toLowerCase() === requiredProvince
           });
 
           printResult
-            ? message.reply(
-                `${"**``` >>> " +
-                  requiredProvince +
-                  " Province Data" +
-                  "\n\n" +
-                  "Totale casi: " +
-                  printResult.totale_casi +
-                  "\n\nlast update: " +
-                  printResult.data +
-                  "```**"}`
+            ? message.channel
+            .send({
+              embed: covidProvince(
+                `${requiredProvince.toUpperCase()} - (Region) :`,
+                0xf8e71c,
+                result[0]
               )
+            })
             : message.reply(requiredProvince + " doesn't exist as a Province");
         } catch (error) {
           message.reply(
