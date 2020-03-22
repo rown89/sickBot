@@ -71,7 +71,9 @@ client.on("ready", (): void => {
           .then(sentMessage => sentMessage.delete({ timeout: 2000 }));
         try {
           const result: Array<ItalianLatests> | any = await italyLatest();
-          message.channel.send({ embed: covidMessage("Italy data :", 0xf8e71c, result[0])});
+          message.channel.send({
+            embed: covidMessage("Italy data :", 0xf8e71c, result[0])
+          });
         } catch (error) {
           message.reply(
             "Some error occurred during the API call on Italy. " + error
@@ -90,14 +92,13 @@ client.on("ready", (): void => {
             return item.denominazione_regione.toLowerCase() === requiredRegion;
           });
           printResult
-            ? message.channel
-                .send({
-                  embed: covidMessage(
-                    `${requiredRegion.toUpperCase()} - (Region) :`,
-                    0xf8e71c,
-                    result[0]
-                  )
-                })
+            ? message.channel.send({
+                embed: covidMessage(
+                  `${requiredRegion.toUpperCase()} - (Region) :`,
+                  0xf8e71c,
+                  result[0]
+                )
+              })
             : message.reply(requiredRegion + " doesn't exist as a region");
         } catch (error) {
           message.reply(
@@ -115,18 +116,17 @@ client.on("ready", (): void => {
         try {
           const result: Array<ItalianProvinceLatests> = await italyProvinceLatest();
           const printResult = result.filter(item => {
-            item.denominazione_provincia.toLowerCase() === requiredProvince
+            item.denominazione_provincia.toLowerCase() === requiredProvince;
           });
 
           printResult
-            ? message.channel
-            .send({
-              embed: covidProvince(
-                `${requiredProvince.toUpperCase()} - (Region) :`,
-                0xf8e71c,
-                result[0]
-              )
-            })
+            ? message.channel.send({
+                embed: covidProvince(
+                  `${requiredProvince.toUpperCase()} - (Region) :`,
+                  0xf8e71c,
+                  result[0]
+                )
+              })
             : message.reply(requiredProvince + " doesn't exist as a Province");
         } catch (error) {
           message.reply(
