@@ -47,6 +47,7 @@ export const color = (word: string, color: string) => {
  */
 
 export const covidMessage = (title: string, color: number, data: any) => {
+  console.log(data)
   const item = data;
   return {
     title: `${title}`,

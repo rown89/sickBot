@@ -91,12 +91,13 @@ client.on("ready", (): void => {
           const printResult: any = result.filter(item => {
             return item.denominazione_regione.toLowerCase() === requiredRegion;
           });
+          console.log(printResult);
           printResult
             ? message.channel.send({
                 embed: covidMessage(
                   `${requiredRegion.toUpperCase()} - (Region) :`,
                   0xf8e71c,
-                  result[0]
+                  printResult[0]
                 )
               })
             : message.reply(requiredRegion + " doesn't exist as a region");
@@ -124,7 +125,7 @@ client.on("ready", (): void => {
                 embed: covidProvince(
                   `${requiredProvince.toUpperCase()} - (Region) :`,
                   0xf8e71c,
-                  result[0]
+                  printResult[0]
                 )
               })
             : message.reply(requiredProvince + " doesn't exist as a Province");
