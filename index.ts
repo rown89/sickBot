@@ -117,9 +117,9 @@ client.on("ready", (): void => {
         try {
           const result: Array<ItalianProvinceLatests> = await italyProvinceLatest();
           const printResult = result.filter(item => {
-            item.denominazione_provincia.toLowerCase() === requiredProvince;
+            return item.denominazione_provincia.toLowerCase() === requiredProvince;
           });
-
+          console.log(printResult);
           printResult
             ? message.channel.send({
                 embed: covidProvince(
