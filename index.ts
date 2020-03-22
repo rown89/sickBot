@@ -1,8 +1,9 @@
 import "@babel/register";
-import { Message } from "discord.js";
+import { Message, MessageEmbed } from "discord.js";
 import { config } from "dotenv";
 import { SickBotClient } from "./src/SickBotClient";
-import { color } from "./src/utilities/color";
+import { covidMessage } from "./src/utilities/";
+
 import {
   italyLatest,
   italyProvince,
@@ -19,11 +20,15 @@ import {
 } from "./src/interfaces";
 
 config({ path: "./.env" });
-const client: SickBotClient = new SickBotClient(process.env.BOT_TOKEN);
+const { BOT_TOKEN, DEV_BOT_TOKEN } = process.env;
+
+const client: SickBotClient = new SickBotClient(
+  String(process.env.NODE_ENV) === "production" ? BOT_TOKEN : DEV_BOT_TOKEN
+);
 const PREFIX: string = "!!";
 
 client.on("ready", (): void => {
-  console.log("Hello, I'm sick but ready!");
+  console.log(`Hello, I'm sick but ready!\nStatus: ${process.env.NODE_ENV}`);
 
   if (client.user) {
     client.user.setPresence({
@@ -48,67 +53,39 @@ client.on("ready", (): void => {
 
       const cmd: string = args.shift()!.toLocaleLowerCase();
 
-      if (cmd === "help") {
-        const help = `!!covid - return last data about Italy.
+      if (cmd === "covid help") {
+        const help = new MessageEmbed()
+          .setTitle("SickBot Commands:")
+          .setColor(0xf8e71c)
+          .setDescription(
+            `!!covid - return last data about Italy.
           \n!!covid r name - return last data about an Italian region.
-          \n!!covid p name - return last data about italian Province.`;
-        message.channel.send("```" + `${help}` + "```");
+          \n!!covid p name - return last data about italian Province.`
+          );
+        message.channel.send(help);
       }
 
       if (cmd === "covid") {
-        message.reply(" retrieving Italian stats...")
-          .then(sentMessage => sentMessage.delete({timeout: 2000}))
-        
-        try {
-          const result: Array<ItalianLatests> = await italyLatest();
-          result.map(item => {
-            return message.channel.send(
-              `${"```>>> Italy Data\n\n" +
-                "Totale casi: " +
-                item.totale_casi +
-                "\n" +
-                "Totale attualmente positivi: " +
-                item.totale_attualmente_positivi +
-                "\n" +
-                "Nuovi attualmente positivi: " +
-                item.nuovi_attualmente_positivi +
-                "\n" +
-                "Terapia intensiva: " +
-                item.terapia_intensiva +
-                "\n" +
-                "Ricoverati con sintomi:" +
-                item.ricoverati_con_sintomi +
-                "\n" +
-                "Totale ospedalizzati: " +
-                item.totale_ospedalizzati +
-                "\n" +
-                "Isolamento domiciliare: " +
-                item.isolamento_domiciliare +
-                "\n" +
-                "Dimessi guariti: " +
-                item.dimessi_guariti +
-                "\n" +
-                "Tamponi: " +
-                item.tamponi +
-                "\n" +
-                "Deceduti: " +
-                item.deceduti +
-                "\n\nlast update: " +
-                item.data +
-                "```"}`
-            );
-          });
-        } catch (error) {
-          message.reply(
-            "Some error occurred during the API call on italyLatest. " + error
-          );
-        }
+        message
+          .reply(" retrieving Italian stats...")
+          .then(sentMessage => sentMessage.delete({ timeout: 2000 }));
+
+        const result: Array<ItalianLatests> | any = await italyLatest()
+          .then(item => {
+            //console.log(item);
+            const msg = covidMessage("Italy data :", 0xf8e71c, item[0]);
+            return message.channel
+              .send({ msg })
+              .then(msg => console.log(msg))
+              .catch(err => console.log(err));
+          })
       }
 
       if (message.content.includes(PREFIX + "covid r ")) {
         const requiredRegion = message.content.substring(10).toLowerCase();
-        message.reply(" retrieving " + requiredRegion + " Region data")
-          .then(sentMessage => sentMessage.delete({timeout: 2000}));
+        message
+          .reply(" retrieving " + requiredRegion + " Region data")
+          .then(sentMessage => sentMessage.delete({ timeout: 2000 }));
         let printResult: any = undefined;
 
         try {
@@ -167,8 +144,9 @@ client.on("ready", (): void => {
 
       if (message.content.includes(PREFIX + "covid p ")) {
         const requiredProvince = message.content.substring(10).toLowerCase();
-        message.reply(" retrieving " + requiredProvince + " province data")
-          .then(sentMessage => sentMessage.delete({timeout: 2000}));
+        message
+          .reply(" retrieving " + requiredProvince + " province data")
+          .then(sentMessage => sentMessage.delete({ timeout: 2000 }));
         let printResult: any = undefined;
 
         try {
