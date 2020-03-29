@@ -48,8 +48,7 @@ app.post("/buildChart/region/stackedBar", (req, res) => {
     };
 
     PythonShell.run('stackedBar.py', options, function (err, results) {
-      if (err) throw err;
-      console.log(err);
+      if (err){ console.log(err); throw err;};
       console.log('results: %j', results);
     });
 
@@ -58,7 +57,7 @@ app.post("/buildChart/region/stackedBar", (req, res) => {
     });
     
     pyshell.end(function (err,code,signal) {
-      if (err) throw err;
+      if (err){ console.log(err); throw err;};
       res.send({ok: "Python Script Executed Correctly"});
       setTimeout(() => {
         (async () => {
