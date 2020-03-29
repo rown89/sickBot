@@ -3,4 +3,5 @@ export * from "./italyProvince";
 export * from "./italyProvinceLatest";
 export * from "./italyRegions";
 export * from "./italyRegionsLatest";
-export * from "./charts";
+export * from "./charts/chartStackedBar";
+export * from "./charts/chartRadar";

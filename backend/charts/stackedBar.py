@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 
-print(sys.argv)
 region1_data = sys.argv[1]  # region1 | data
 region1_denominazione_regione = sys.argv[2]  # region1 | denominazione_regione
 # region1 | ricoverati_con_sintomi
@@ -93,7 +92,7 @@ autolabel(rect1)
 autolabel(rect2)
 
 # Add xticks on the middle of the group bars
-plt.xlabel('SickBot', fontweight='bold')
+plt.xlabel('SickBot by Danilo Mongelli', fontweight='bold')
 plt.xticks([r + barWidth for r in range(len(bars1))], ['Intensive Care', 'Hospitalized today', 'New Hospitalized',
                                                        'Isolation', 'All infected', 'New infected', 'Recovered today', 'deaths', 'All cases', 'Covid Tests'])
 

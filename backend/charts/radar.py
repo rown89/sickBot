@@ -129,36 +129,7 @@ ax.fill(angles, values, 'r', alpha=0.1)
 
 # Add legend
 plt.legend(loc='upper right', bbox_to_anchor=(0.07, 1.15))
-
-print(
-    "\nRegion1: \n ricoverati_con_sintomi: " +
-    str(region1_ricoverati_con_sintomi) + "\n",
-    "terapia_intensiva: " + str(region1_terapia_intensiva) + "\n",
-    "totale_ospedalizzati: " + str(region1_totale_ospedalizzati) + "\n",
-    "isolamento_domiciliare: " + str(region1_isolamento_domiciliare) + "\n",
-    "totale_attualmente_positivi: " +
-    str(region1_totale_attualmente_positivi) + "\n",
-    "nuovi_attualmente_positivi: " +
-    str(region1_nuovi_attualmente_positivi) + "\n",
-    "dimessi_guariti: " + str(region1_dimessi_guariti) + "\n",
-    "deceduti: " + str(region1_deceduti) + "\n",
-    "totale_casi: " + str(region1_totale_casi) + "\n",
-    "tamponi: " + str(region1_tamponi) + "\n",
-
-    "\nRegion2: \n ricoverati_con_sintomi: " +
-    str(region2_ricoverati_con_sintomi) + "\n",
-    "terapia_intensiva: " + str(region2_terapia_intensiva) + "\n",
-    "totale_ospedalizzati: " + str(region2_totale_ospedalizzati) + "\n",
-    "isolamento_domiciliare: " + str(region2_isolamento_domiciliare) + "\n",
-    "totale_attualmente_positivi: " +
-    str(region2_totale_attualmente_positivi) + "\n",
-    "nuovi_attualmente_positivi: " +
-    str(region2_nuovi_attualmente_positivi) + "\n",
-    "dimessi_guariti: " + str(region2_dimessi_guariti) + "\n",
-    "deceduti: " + str(region2_deceduti) + "\n",
-    "totale_casi: " + str(region2_totale_casi) + "\n",
-    "\nmaxValue: " + str(maxValue)
-)
+plt.xlabel('SickBot by Danilo Mongelli', fontweight='bold')
 
 plt.savefig("./charts/generatedImages/radar.png", dpi=(150))
 sys.stdout.flush()

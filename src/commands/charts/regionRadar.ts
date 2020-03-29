@@ -2,10 +2,10 @@ import { Message, MessageAttachment } from "discord.js";
 import { italyRegions, chartStackedBar } from "../../../src/ApiControllers"
 import { ItalianRegion } from "../../interfaces";
 
-const covidChartRegionStackedBar = async (message: Message) => {
-  const requiredRegion = message.content.substring(40).toLowerCase();
+const covidChartRegionRadar = async (message: Message) => {
   const fromDate = message.content.substring(16, 26).toLowerCase();
   const toDate = message.content.substring(29, 39).toLowerCase();
+  const requiredRegion = message.content.substring(40).toLowerCase();
   const sendData = async (regionsFromDate, regionsToDate) => {
     const region1 = regionsFromDate.filter(item => item.denominazione_regione.toLowerCase() === requiredRegion)[0];
     const region2 =  regionsToDate.filter(item => item.denominazione_regione.toLowerCase() === requiredRegion)[0];
@@ -13,8 +13,7 @@ const covidChartRegionStackedBar = async (message: Message) => {
     try {
       const radar = await chartStackedBar(regions());
       if(radar.ok){
-        console.log("radar " + radar.ok);
-        const attachment = new MessageAttachment("./backend/charts/generatedImages/stackedBar.png");
+        const attachment = new MessageAttachment("./backend/charts/generatedImages/radar.png");
         message.reply(attachment);
       }
       if(radar.error){
@@ -36,4 +35,4 @@ const covidChartRegionStackedBar = async (message: Message) => {
   }
 };
 
-export { covidChartRegionStackedBar };
+export { covidChartRegionRadar };

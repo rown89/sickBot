@@ -1,4 +1,5 @@
 import express from "express";
+const fs = require('fs').promises;
 const bodyParser = require("body-parser");
 const { spawn } = require("child_process");
 
@@ -42,14 +43,24 @@ app.post("/buildChart/region/stackedBar", (req, res) => {
     
     python.stdout.on("data", data => {
       console.log(`express stdout\n: ${data}`);
-      res.send(data.toString());
     });
 
     python.stderr.on('data', (data) => {
       console.log(`stderr: ${data}`);
+      res.send({error: "Python Script Error"});
     });
 
     python.on("close", code => {
+      res.send({ok: "Python Script Executed Correctly"});
+      setTimeout(() => {
+        (async () => {
+          try {
+            await fs.unlink('./charts/generatedImages/stackedBar.png');
+          } catch (e) {
+            console.log(e);
+          }
+        })();
+      }, 1000);
       console.log(`child process close all stdio with code ${code}`);
     });
 
@@ -90,17 +101,26 @@ app.post("/buildChart/region/radar", (req, res) => {
     
     python.stdout.on("data", data => {
       console.log(`express stdout\n: ${data}`);
-      res.send(data.toString());
     });
 
     python.stderr.on('data', (data) => {
       console.log(`stderr: ${data}`);
+      res.send({error: "Python Script Error"});
     });
 
     python.on("close", code => {
+      res.send({ok: "Python Script Executed Correctly"});
+      setTimeout(() => {
+        (async () => {
+          try {
+            await fs.unlink('./charts/generatedImages/stackedBar.png');
+          } catch (e) {
+            console.log(e);
+          }
+        })();
+      }, 1000);
       console.log(`child process close all stdio with code ${code}`);
     });
-
   } else res.send("Something went wrong with the data in radar Post Data");
 });
 

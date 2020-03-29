@@ -8,7 +8,8 @@ import {
   covidCommand,
   covidRegionCommand,
   covidProvinceCommand,
-  covidChartRegionStackedBar
+  covidChartRegionStackedBar,
+  covidChartRegionRadar
 } from "./src/commands";
 
 config({ path: "./.env" });
@@ -66,6 +67,11 @@ client.on("ready", (): void => {
       if (message.content.includes(PREFIX + "covid chart r ")) {
         covidChartRegionStackedBar(message);
       }
+
+      /* devo lavorare sul substring
+      if (message.content.includes(PREFIX + "covid cr radar ")) {
+        covidChartRegionRadar(message);
+      } */
     }
   );
 });
