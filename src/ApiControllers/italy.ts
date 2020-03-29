@@ -9,7 +9,7 @@ async function italy(){
     let result: Object = await call.json();
     return result;
   } catch (error) {
-    console.log(error);
+    console.log("Error in Italy ApiControllers")
     return error
   }
 }

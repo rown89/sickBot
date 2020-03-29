@@ -82,7 +82,7 @@ export const covidMessage = (title: string, color: number, data: any) => {
       },
       {
         name: "Intensive care",
-        value: `${item.nuovi_attualmente_positivi}`
+        value: `${item.terapia_intensiva}`
       },
       {
         name: "Hospitalized with symptoms",

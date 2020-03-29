@@ -9,7 +9,7 @@ async function italyRegionsLatest() {
     let result = await call.json();
     return result;
   } catch (error) {
-    console.log(error);
+    console.log("Error in ItalyRegionsLatest ApiControllers")
     return;
   }
 }

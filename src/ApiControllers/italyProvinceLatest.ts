@@ -9,7 +9,7 @@ async function italyProvinceLatest() {
     let result: Object = await call.json();
     return result;
   } catch (error) {
-    console.log(error);
+    console.log("Error in ItalyProvinceLatest ApiControllers")
     return error;
   }
 }

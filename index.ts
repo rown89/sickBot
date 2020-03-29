@@ -1,29 +1,21 @@
 import "@babel/register";
-import { Message, MessageEmbed } from "discord.js";
+const fs = require("fs");
+import { Message } from "discord.js";
 import { config } from "dotenv";
 import { SickBotClient } from "./src/SickBotClient";
-import { covidMessage, covidProvince } from "./src/utilities/";
-
 import {
-  italyLatest,
-  italyProvince,
-  italyProvinceLatest,
-  italyRegions,
-  italyRegionsLatest,
-  radarChart
-} from "./src/ApiControllers";
-
-import {
-  ItalianLatests,
-  ItalianRegionLatests,
-  ItalianProvinceLatests
-} from "./src/interfaces";
+  helpCommand,
+  covidCommand,
+  covidRegionCommand,
+  covidProvinceCommand,
+  covidChartRegionStackedBar
+} from "./src/commands";
 
 config({ path: "./.env" });
 const { BOT_TOKEN, DEV_BOT_TOKEN } = process.env;
 
 const client: SickBotClient = new SickBotClient(
-  String(process.env.NODE_ENV) === "production" ? BOT_TOKEN : DEV_BOT_TOKEN
+  process.env.NODE_ENV === "production" ? BOT_TOKEN : DEV_BOT_TOKEN
 );
 const PREFIX: string = "!!";
 
@@ -53,93 +45,27 @@ client.on("ready", (): void => {
 
       const cmd: string = args.shift()!.toLocaleLowerCase();
 
+      //Standards Commands
       if (cmd === "covid help") {
-        const help = new MessageEmbed()
-          .setTitle("SickBot Commands:")
-          .setColor(0xf8e71c)
-          .setDescription(
-            `!!covid - return last data about Italy.
-          \n!!covid r name - return last data about an Italian region.
-          \n!!covid p name - return last data about italian Province.`
-          );
-        message.channel.send(help);
+        helpCommand(message);
       }
 
       if (cmd === "covid") {
-        message
-          .reply(" retrieving Italian stats...")
-          .then(sentMessage => sentMessage.delete({ timeout: 2000 }));
-        try {
-          const result: Array<ItalianLatests> | any = await italyLatest();
-          message.channel.send({
-            embed: covidMessage("Italy data :", 0xf8e71c, result[0])
-          });
-        } catch (error) {
-          message.reply(
-            "Some error occurred during the API call on Italy. " + error
-          );
-        }
+        covidCommand(message);
       }
 
       if (message.content.includes(PREFIX + "covid r ")) {
-        const requiredRegion = message.content.substring(10).toLowerCase();
-        message
-          .reply(` retrieving ${requiredRegion.toUpperCase()}  Region data`)
-          .then(sentMessage => sentMessage.delete({ timeout: 2000 }));
-        try {
-          const result: Array<ItalianRegionLatests> = await italyRegionsLatest();
-          const printResult: any = result.filter(item => {
-            return item.denominazione_regione.toLowerCase() === requiredRegion;
-          });
-          console.log(printResult);
-          printResult
-            ? message.channel.send({
-                embed: covidMessage(
-                  `${requiredRegion.toUpperCase()} (Region) :`,
-                  0xf8e71c,
-                  printResult[0]
-                )
-              })
-            : message.reply(requiredRegion + " doesn't exist as a region");
-        } catch (error) {
-          message.reply(
-            "Some error occurred during the API call on Region. " + error
-          );
-        }
+        covidRegionCommand(message);
       }
 
       if (message.content.includes(PREFIX + "covid p ")) {
-        const requiredProvince = message.content.substring(10).toLowerCase();
-        message
-          .reply(" retrieving " + requiredProvince + " province data")
-          .then(sentMessage => sentMessage.delete({ timeout: 2000 }));
-
-        try {
-          const result: Array<ItalianProvinceLatests> = await italyProvinceLatest();
-          const printResult = result.filter(item => {
-            return item.denominazione_provincia.toLowerCase() === requiredProvince;
-          });
-          console.log(printResult);
-          printResult
-            ? message.channel.send({
-                embed: covidProvince(
-                  `${requiredProvince.toUpperCase()} (Province) :`,
-                  0xf8e71c,
-                  printResult[0]
-                )
-              })
-            : message.reply(requiredProvince + " doesn't exist as a Province");
-        } catch (error) {
-          message.reply(
-            "Some error occurred during the API call on Province. " + error
-          );
-        }
+        covidProvinceCommand(message);
       }
 
-      /* if (message.content.includes(PREFIX + "covid chart radar ")) {
-        message.reply(" Ok, trying to build a Radar Chart")
-        .then(sentMessage => sentMessage.delete({timeout: 1800}));
-      } */
+      //Charts Commands
+      if (message.content.includes(PREFIX + "covid chart r ")) {
+        covidChartRegionStackedBar(message);
+      }
     }
   );
 });
