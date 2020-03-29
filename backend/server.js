@@ -47,7 +47,6 @@ app.post("/buildChart/region/stackedBar", (req, res) => {
 
     python.stderr.on('data', (data) => {
       console.log(`stderr: ${data}`);
-      res.send({error: "Python Script Error"});
     });
 
     python.on("close", code => {
@@ -105,7 +104,6 @@ app.post("/buildChart/region/radar", (req, res) => {
 
     python.stderr.on('data', (data) => {
       console.log(`stderr: ${data}`);
-      res.send({error: "Python Script Error"});
     });
 
     python.on("close", code => {

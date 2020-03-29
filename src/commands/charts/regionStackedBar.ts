@@ -16,10 +16,7 @@ const covidChartRegionStackedBar = async (message: Message) => {
         console.log("radar " + radar.ok);
         const attachment = new MessageAttachment("./backend/charts/generatedImages/stackedBar.png");
         message.reply(attachment);
-      }
-      if(radar.error){
-        message.reply("Sry, i cant retrieve the image");
-      }
+      } else return message.reply("Sry, i cant retrieve the image");
     } catch(err){ 
       console.log("error, " + err);
       return err
