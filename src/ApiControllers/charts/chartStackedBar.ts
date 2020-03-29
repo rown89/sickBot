@@ -9,7 +9,7 @@ async function chartStackedBar(regions) {
   try {
     let call: Response = await fetch(
       process.env.NODE_ENV === "production"
-        ? new URL("http://euve264410.serverprofi24.net:4000/buildChart/region/stackedBar")
+        ? new URL("http://euve264410.serverprofi24.net:4200/buildChart/region/stackedBar")
         : new URL("http://localhost:4200/buildChart/region/stackedBar"),
       {
         method: "POST",
