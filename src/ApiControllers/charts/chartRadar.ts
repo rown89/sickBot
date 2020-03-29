@@ -8,7 +8,7 @@ async function chartRadar(regions) {
   try {
     let call: Response = await fetch(
       process.env.NODE_ENV === "production"
-        ? new URL("http://62.75.141.240:4000/buildChart/region/radar")
+        ? new URL("http://euve264410.serverprofi24.net:4000/buildChart/region/radar")
         : new URL("http://localhost:4000/buildChart/region/radar"),
       {
         method: "POST",
