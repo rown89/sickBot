@@ -4,7 +4,7 @@ import { config } from "dotenv";
 config({ path: "../../.env" });
 const { CHART_PROD_URL, CHART_DEV_URL } = process.env;
 
-export async function chartStackedBar(regions) {
+async function chartStackedBar(regions) {
   try {
     let call: Response = await fetch(
       process.env.NODE_ENV === "production"
@@ -27,3 +27,5 @@ export async function chartStackedBar(regions) {
     return error;
   }
 }
+
+export { chartStackedBar };
