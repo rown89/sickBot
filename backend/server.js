@@ -15,9 +15,9 @@ app.post("/buildChart/region/stackedBar", (req, res) => {
     const maxValue = region1.tamponi >= region2.tamponi ? region1.tamponi : region2.tamponi;
     let options = {
       mode: 'text',
-      pythonPath: 'usr/bin/python',
+      pythonPath: '/usr/bin/python',
       pythonOptions: ['-u'], // get print results in real-time
-      scriptPath: 'charts',
+      scriptPath: '/charts',
       args: [
         region1.data,
         region1.denominazione_regione,
