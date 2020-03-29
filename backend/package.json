@@ -4,11 +4,19 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon start.js"
   },
   "author": "Danilo Mongelli",
   "license": "ISC",
   "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "body-parser": "^1.19.0",
+    "esm": "^3.2.25",
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/register": "^7.9.0"
   }
 }
