@@ -69,7 +69,7 @@ bars2 = [
 ]
 
 # Set position of bar on X axis
-""" fig,  """ax = plt.subplots()
+fig, ax = plt.subplots()
 r1 = np.arange(len((bars1)))
 r2 = [x + barWidth for x in r1]
 
@@ -98,6 +98,5 @@ plt.xticks([r + barWidth for r in range(len(bars1))], ['Intensive Care', 'Hospit
 
 # Create legend & Show graphic
 plt.legend()
-fig = plt.gcf()
 fig.set_size_inches(18.5, 10.5)
 plt.savefig("./charts/generatedImages/stackedBar.png")
