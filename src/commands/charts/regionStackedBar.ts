@@ -3,12 +3,16 @@ import { italyRegions, chartStackedBar } from "../../../src/ApiControllers"
 import { ItalianRegion } from "../../interfaces";
 
 const covidChartRegionStackedBar = async (message: Message) => {
-  const requiredRegion = message.content.substring(40).toLowerCase();
+  const requiredRegion = () => {
+    if(message.content.substring(40).toLowerCase() === "emilia romagna"){
+      return "emilia-romagna";
+    } else return message.content.substring(40).toLowerCase();
+  }
   const fromDate = message.content.substring(16, 26).toLowerCase();
   const toDate = message.content.substring(29, 39).toLowerCase();
   const sendData = async (regionsFromDate, regionsToDate) => {
-    const region1 = regionsFromDate.filter(item => item.denominazione_regione.toLowerCase() === requiredRegion)[0];
-    const region2 =  regionsToDate.filter(item => item.denominazione_regione.toLowerCase() === requiredRegion)[0];
+    const region1 = regionsFromDate.filter(item => item.denominazione_regione.toLowerCase() === requiredRegion())[0];
+    const region2 =  regionsToDate.filter(item => item.denominazione_regione.toLowerCase() === requiredRegion())[0];
     const regions = () => { return { region1, region2 } };
     try {
       const radar = await chartStackedBar(regions());
