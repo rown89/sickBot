@@ -90,8 +90,8 @@ autolabel(rect2)
 plt.xlabel('SickBot by Danilo Mongelli', fontweight='bold')
 plt.xticks([r + barWidth for r in range(len(bars1))], [
     'Intensive\nCare',
-    'Hospitalized\ntoday',
-    'Hospitalized',
+    'Hospitalized\nwith symptoms',
+    'All Hospitalized',
     'In isolation',
     'New infections',
     'All infections',
