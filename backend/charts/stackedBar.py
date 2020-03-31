@@ -87,7 +87,7 @@ autolabel(rect1)
 autolabel(rect2)
 
 # Add xticks on the middle of the group bars
-plt.xlabel('\nSickBot by Danilo Mongelli', fontweight='bold')
+plt.xlabel('SickBot by Danilo Mongelli', fontweight='bold')
 plt.xticks([r + barWidth for r in range(len(bars1))], [
     'Intensive\nCare',
     'Hospitalized\ntoday',
@@ -102,6 +102,6 @@ plt.xticks([r + barWidth for r in range(len(bars1))], [
     ])
 
 # Create legend & Show graphic
-plt.legend()
+plt.legend(loc='upper right', bbox_to_anchor=(0.56, 1.08))
 fig.set_size_inches(18.5, 10.5)
 plt.savefig("./charts/generatedImages/stackedBar.png")
