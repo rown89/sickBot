@@ -69,20 +69,20 @@ export const covidMessage = (title: string, color: number, data: any) => {
     },
     fields: [
       {
-        name: "Total cases",
+        name: "All Cases",
         value: `${item.totale_casi}`
       },
       {
-        name: "People positive to the infection",
+        name: "Infections",
         value: `${item.totale_positivi}`
       },
       {
-        name: "New People positive to the infection",
+        name: "infections today",
         value: `${item.nuovi_positivi}`
       },
       ,
       {
-        name: "All currently infected from prev day",
+        name: "infections variation from previous day",
         value: `${item.variazione_totale_positivi}`
       },
       {
@@ -94,7 +94,7 @@ export const covidMessage = (title: string, color: number, data: any) => {
         value: `${item.ricoverati_con_sintomi}`
       },
       {
-        name: "All Hospitalized people with symptoms",
+        name: "All Hospitalized",
         value: `${item.totale_ospedalizzati}`
       },
       {
@@ -102,7 +102,7 @@ export const covidMessage = (title: string, color: number, data: any) => {
         value: `${item.isolamento_domiciliare}`
       },
       {
-        name: "People recovered and discharged from hospital",
+        name: "People recovered and discharged from Hospital",
         value: `${item.dimessi_guariti}`
       },
       {
