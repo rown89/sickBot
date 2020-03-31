@@ -102,6 +102,6 @@ plt.xticks([r + barWidth for r in range(len(bars1))], [
     ])
 
 # Create legend & Show graphic
-plt.legend(loc='upper right', bbox_to_anchor=(0.56, 1.1))
+plt.legend(loc='upper right', bbox_to_anchor=(0.58, 1.1))
 fig.set_size_inches(18.5, 10.5)
 plt.savefig("./charts/generatedImages/stackedBar.png")
