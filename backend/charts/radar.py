@@ -4,57 +4,47 @@ import numpy as np
 from math import pi
 import sys
 
-print(sys.argv)
 region1_data = sys.argv[1]  # region1 | data
 region1_denominazione_regione = sys.argv[2]  # region1 | denominazione_regione
-# region1 | ricoverati_con_sintomi
-region1_ricoverati_con_sintomi = int(sys.argv[3])
+region1_ricoverati_con_sintomi = int(sys.argv[3])  # region1 | ricoverati_con_sintomi
 region1_terapia_intensiva = int(sys.argv[4])  # region1 | terapia_intensiva
-# region1 | totale_ospedalizzati
-region1_totale_ospedalizzati = int(sys.argv[5])
-# region1 | isolamento_domiciliare
-region1_isolamento_domiciliare = int(sys.argv[6])
-# region1 | totale_attualmente_positivi
-region1_totale_attualmente_positivi = int(sys.argv[7])
-# region1 | nuovi_attualmente_positivi
-region1_nuovi_attualmente_positivi = int(sys.argv[8])
-region1_dimessi_guariti = int(sys.argv[9])  # region1 | dimessi_guariti
-region1_deceduti = int(sys.argv[10])  # region1 | deceduti
-region1_totale_casi = int(sys.argv[11])  # region1 | totale_casi
-region1_tamponi = int(sys.argv[12])  # region1 | tamponi
+region1_totale_ospedalizzati = int(sys.argv[5])  # region1 | totale_ospedalizzati
+region1_isolamento_domiciliare = int(sys.argv[6])  # region1 | isolamento_domiciliare
+region1_totale_positivi = int(sys.argv[7])  # region1 | totale_positivi
+region1_variazione_totale_positivi = int(sys.argv[8]) # region1 | variazione_totale_positivi
+region1_nuovi_positivi = int(sys.argv[9])  # region1 | nuovi_positivi
+region1_dimessi_guariti = int(sys.argv[10])  # region1 | dimessi_guariti
+region1_deceduti = int(sys.argv[11])  # region1 | deceduti
+region1_totale_casi = int(sys.argv[12])  # region1 | totale_casi
+region1_tamponi = int(sys.argv[13])  # region1 | tamponi
 
-region2_data = sys.argv[13]  # region2 | data
-region2_denominazione_regione = sys.argv[14]  # region2 | denominazione_regione
-# region2 | ricoverati_con_sintomi
-region2_ricoverati_con_sintomi = int(sys.argv[15])
-region2_terapia_intensiva = int(sys.argv[16])  # region2 | terapia_intensiva
-# region2 | totale_ospedalizzati
-region2_totale_ospedalizzati = int(sys.argv[17])
-# region2 | isolamento_domiciliare
-region2_isolamento_domiciliare = int(sys.argv[18])
-# region2 | totale_attualmente_positivi
-region2_totale_attualmente_positivi = int(sys.argv[19])
-# region2 | nuovi_attualmente_positivi
-region2_nuovi_attualmente_positivi = int(sys.argv[20])
-region2_dimessi_guariti = int(sys.argv[21])  # region2 | dimessi_guariti
-region2_deceduti = int(sys.argv[22])  # region2 | deceduti
-region2_totale_casi = int(sys.argv[23])  # region2 | totale_casi
-region2_tamponi = int(sys.argv[24])  # region2 | tamponi
-
-maxValue = int(sys.argv[25])  # maxValue
+region2_data = sys.argv[14]  # region2 | data
+region2_denominazione_regione = sys.argv[15]  # region2 | denominazione_regione
+region2_ricoverati_con_sintomi = int(sys.argv[16])  # region2 | ricoverati_con_sintomi
+region2_terapia_intensiva = int(sys.argv[17])  # region2 | terapia_intensiva
+region2_totale_ospedalizzati = int(sys.argv[18])  # region2 | totale_ospedalizzati
+region2_isolamento_domiciliare = int(sys.argv[19])  # region2 | isolamento_domiciliare
+region2_totale_positivi = int(sys.argv[20])  # region2 | totale_attualmente_positivi
+region2_variazione_totale_positivi = int(sys.argv[21]) # region2 | variazione_totale_positivi
+region2_nuovi_positivi = int(sys.argv[22])  # region2 | nuovi_positivi
+region2_dimessi_guariti = int(sys.argv[23])  # region2 | dimessi_guariti
+region2_deceduti = int(sys.argv[24])  # region2 | deceduti
+region2_totale_casi = int(sys.argv[25])  # region2 | totale_casi
+region2_tamponi = int(sys.argv[26])  # region2 | tamponi
 
 # Set data
 df = pd.DataFrame({
     'group': ['A', 'B'],
-    'New hospitalized': [(region1_ricoverati_con_sintomi), region2_ricoverati_con_sintomi],
+    'Hospitalized': [(region1_ricoverati_con_sintomi), region2_ricoverati_con_sintomi],
     'Intensive care': [region1_terapia_intensiva, region2_terapia_intensiva],
-    'All hospitalized': [region1_totale_ospedalizzati, region2_totale_ospedalizzati],
+    'All Hospitalized': [region1_totale_ospedalizzati, region2_totale_ospedalizzati],
     'In isolation': [region1_isolamento_domiciliare, region2_isolamento_domiciliare],
-    'Infected': [region1_totale_attualmente_positivi, region2_totale_attualmente_positivi],
-    'New infected': [region1_nuovi_attualmente_positivi, region2_nuovi_attualmente_positivi],
-    'Discharged healed': [region1_dimessi_guariti, region2_dimessi_guariti],
+    'Infected': [region1_totale_positivi, region2_totale_positivi],
+    'New infected': [region1_nuovi_positivi, region2_nuovi_positivi],
+    'Discharged and healed': [region1_dimessi_guariti, region2_dimessi_guariti],
     'Deaths': [region1_deceduti, region2_deceduti],
     'Total cases': [region1_totale_casi, region2_totale_casi],
+    'All currently infected from prev day': [region1_variazione_totale_positivi, region2_variazione_totale_positivi]
 })
 
 # ------- PART 1: Create background

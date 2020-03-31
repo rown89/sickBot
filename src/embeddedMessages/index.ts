@@ -47,7 +47,7 @@ export const color = (word: string, color: string) => {
  */
 
 export const covidMessage = (title: string, color: number, data: any) => {
-  console.log(data)
+  console.log(data);
   const item = data;
   return {
     title: `${title}`,
@@ -74,11 +74,16 @@ export const covidMessage = (title: string, color: number, data: any) => {
       },
       {
         name: "People positive to the infection",
-        value: `${item.totale_attualmente_positivi}`
+        value: `${item.totale_positivi}`
       },
       {
         name: "New People positive to the infection",
-        value: `${item.nuovi_attualmente_positivi}`
+        value: `${item.nuovi_positivi}`
+      },
+      ,
+      {
+        name: "All currently infected from prev day",
+        value: `${item.variazione_totale_positivi}`
       },
       {
         name: "Intensive care",
