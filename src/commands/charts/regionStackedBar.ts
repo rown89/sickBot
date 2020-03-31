@@ -4,7 +4,12 @@ import { ItalianRegion } from "../../interfaces";
 
 const covidChartRegionStackedBar = async (message: Message) => {
   const requiredRegion = () => {
-    if(message.content.substring(40).toLowerCase() === "emilia romagna"){
+    if (
+      message.content.substring(40).toLowerCase() === "emilia romagna" ||
+      message.content.substring(40).toLowerCase() === "Emilia romagna" ||
+      message.content.substring(40).toLowerCase() === "Emilia Romagna" ||
+      message.content.substring(40).toLowerCase() === "emilia Romagna"
+    ) {
       return "emilia-romagna";
     } else return message.content.substring(40).toLowerCase();
   }
