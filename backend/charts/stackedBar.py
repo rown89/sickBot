@@ -87,16 +87,16 @@ autolabel(rect1)
 autolabel(rect2)
 
 # Add xticks on the middle of the group bars
-plt.xlabel('\n\nSickBot by Danilo Mongelli', fontweight='bold')
+plt.xlabel('\nSickBot by Danilo Mongelli', fontweight='bold')
 plt.xticks([r + barWidth for r in range(len(bars1))], [
-    'Intensive Care',
-    'Hospitalized today',
+    'Intensive\nCare',
+    'Hospitalized\ntoday',
     'Hospitalized',
     'In isolation',
     'New infections',
     'All infections',
-    'infections variation\n from previous day',
-    'Discharged and \nHealed today',
+    'infections variation\nfrom prev day',
+    'Discharged and\nHealed today',
     'Deaths',
     'All cases'
     ])
