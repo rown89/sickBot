@@ -95,7 +95,7 @@ plt.xticks([r + barWidth for r in range(len(bars1))], [
     'In isolation',
     'New infections',
     'All infections',
-    'infections variation\nfrom prev day',
+    'infections\nvariation from\n prev day',
     'Discharged and\nHealed today',
     'Deaths',
     'All cases'
