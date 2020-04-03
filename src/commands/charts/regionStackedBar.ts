@@ -4,42 +4,39 @@ import { ItalianRegion } from "../../interfaces";
 
 const covidChartRegionStackedBar = async (message: Message) => {
   const requiredRegion = () => {
-    if (
-      message.content.substring(40).toLowerCase() === "emilia romagna" ||
-      message.content.substring(40).toLowerCase() === "Emilia romagna" ||
-      message.content.substring(40).toLowerCase() === "Emilia Romagna" ||
-      message.content.substring(40).toLowerCase() === "emilia Romagna"
-    ) {
+    const region = message.content.substring(41).toLowerCase();
+    if (region === "emilia romagna" || region === "Emilia romagna" || region === "Emilia Romagna" || region === "emilia Romagna"){
       return "emilia-romagna";
-    } else return message.content.substring(40).toLowerCase();
+    } else return region;
   }
-  const fromDate = message.content.substring(16, 26).toLowerCase();
-  const toDate = message.content.substring(29, 39).toLowerCase();
-  const sendData = async (regionsFromDate, regionsToDate) => {
-    const region1 = regionsFromDate.filter(item => item.denominazione_regione.toLowerCase() === requiredRegion())[0];
-    const region2 =  regionsToDate.filter(item => item.denominazione_regione.toLowerCase() === requiredRegion())[0];
-    const regions = () => { return { region1, region2 } };
+
+  const fromDate = message.content.substring(17, 27).toLowerCase();
+  const toDate = message.content.substring(30, 40).toLowerCase();
+  
+  const sendData = async (region1, region2) => {
     try {
-      const radar = await chartStackedBar(regions());
-      if(radar.ok){
-        console.log("radar " + radar.ok);
-        const attachment = new MessageAttachment("./backend/charts/generatedImages/stackedBar.png");
-        message.reply(attachment);
-      } else return message.reply("Sry, i cant retrieve the image");
-    } catch(err){ 
-      console.log("error, " + err);
-      return err
-    }
+      const stackedBar = await chartStackedBar({region1, region2});
+      const {imagePath} = await stackedBar.json();
+      const path = "./backend" + imagePath[0].substring(1);
+
+      path.length > 10
+        ? message.reply(`${message.author},`, new MessageAttachment(path))
+        : message.reply("Sry, i cant retrieve the image"); 
+    } catch(err) {
+      console.log(err)
+    };
   };
 
   try {
     const result: Array<ItalianRegion> = await italyRegions();
     const checkFromData = result.filter(item => item.data.substring(0, 10)  === fromDate);
     const checkToDate = result.filter(item => item.data.substring(0, 10) === toDate);
-    sendData(checkFromData, checkToDate);
-  } catch (error) {
-    message.reply(`sorry, i can't build a shit right now.`);
-  }
+    const region1 = checkFromData.filter(item => item.denominazione_regione.toLowerCase() === requiredRegion())[0];
+    const region2 =  checkToDate.filter(item => item.denominazione_regione.toLowerCase() === requiredRegion())[0];
+    sendData(region1, region2);
+  } catch (err) {
+    console.log("Err in italyRegions API", err)
+  };
 };
 
 export { covidChartRegionStackedBar };

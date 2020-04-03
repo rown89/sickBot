@@ -2,49 +2,52 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from math import pi
-import sys
+import sys, os
+import random, string
 
-region1_data = sys.argv[1]  # region1 | data
-region1_denominazione_regione = sys.argv[2]  # region1 | denominazione_regione
-region1_ricoverati_con_sintomi = int(sys.argv[3])  # region1 | ricoverati_con_sintomi
-region1_terapia_intensiva = int(sys.argv[4])  # region1 | terapia_intensiva
-region1_totale_ospedalizzati = int(sys.argv[5])  # region1 | totale_ospedalizzati
-region1_isolamento_domiciliare = int(sys.argv[6])  # region1 | isolamento_domiciliare
-region1_totale_positivi = int(sys.argv[7])  # region1 | totale_positivi
-region1_variazione_totale_positivi = int(sys.argv[8]) # region1 | variazione_totale_positivi
-region1_nuovi_positivi = int(sys.argv[9])  # region1 | nuovi_positivi
-region1_dimessi_guariti = int(sys.argv[10])  # region1 | dimessi_guariti
-region1_deceduti = int(sys.argv[11])  # region1 | deceduti
-region1_totale_casi = int(sys.argv[12])  # region1 | totale_casi
-region1_tamponi = int(sys.argv[13])  # region1 | tamponi
+region1_data = sys.argv[1]                                   # region1 | data
+region1_denominazione_regione = sys.argv[2]                  # region1 | denominazione_regione
+region1_ricoverati_con_sintomi = int(sys.argv[3])            # region1 | ricoverati_con_sintomi
+region1_terapia_intensiva = int(sys.argv[4])                 # region1 | terapia_intensiva
+region1_totale_ospedalizzati = int(sys.argv[5])              # region1 | totale_ospedalizzati
+region1_isolamento_domiciliare = int(sys.argv[6])            # region1 | isolamento_domiciliare
+region1_totale_positivi = int(sys.argv[7])                   # region1 | totale_positivi
+region1_variazione_totale_positivi = int(sys.argv[8])        # region1 | variazione_totale_positivi
+region1_nuovi_positivi = int(sys.argv[9])                    # region1 | nuovi_positivi
+region1_dimessi_guariti = int(sys.argv[10])                  # region1 | dimessi_guariti
+region1_deceduti = int(sys.argv[11])                         # region1 | deceduti
+region1_totale_casi = int(sys.argv[12])                      # region1 | totale_casi
+region1_tamponi = int(sys.argv[13])                          # region1 | tamponi
 
-region2_data = sys.argv[14]  # region2 | data
-region2_denominazione_regione = sys.argv[15]  # region2 | denominazione_regione
-region2_ricoverati_con_sintomi = int(sys.argv[16])  # region2 | ricoverati_con_sintomi
-region2_terapia_intensiva = int(sys.argv[17])  # region2 | terapia_intensiva
-region2_totale_ospedalizzati = int(sys.argv[18])  # region2 | totale_ospedalizzati
-region2_isolamento_domiciliare = int(sys.argv[19])  # region2 | isolamento_domiciliare
-region2_totale_positivi = int(sys.argv[20])  # region2 | totale_attualmente_positivi
-region2_variazione_totale_positivi = int(sys.argv[21]) # region2 | variazione_totale_positivi
-region2_nuovi_positivi = int(sys.argv[22])  # region2 | nuovi_positivi
-region2_dimessi_guariti = int(sys.argv[23])  # region2 | dimessi_guariti
-region2_deceduti = int(sys.argv[24])  # region2 | deceduti
-region2_totale_casi = int(sys.argv[25])  # region2 | totale_casi
-region2_tamponi = int(sys.argv[26])  # region2 | tamponi
+region2_data = sys.argv[14]                                  # region2 | data
+region2_denominazione_regione = sys.argv[15]                 # region2 | denominazione_regione
+region2_ricoverati_con_sintomi = int(sys.argv[16])           # region2 | ricoverati_con_sintomi
+region2_terapia_intensiva = int(sys.argv[17])                # region2 | terapia_intensiva
+region2_totale_ospedalizzati = int(sys.argv[18])             # region2 | totale_ospedalizzati
+region2_isolamento_domiciliare = int(sys.argv[19])           # region2 | isolamento_domiciliare
+region2_totale_positivi = int(sys.argv[20])                  # region2 | totale_attualmente_positivi
+region2_variazione_totale_positivi = int(sys.argv[21])       # region2 | variazione_totale_positivi
+region2_nuovi_positivi = int(sys.argv[22])                   # region2 | nuovi_positivi
+region2_dimessi_guariti = int(sys.argv[23])                  # region2 | dimessi_guariti
+region2_deceduti = int(sys.argv[24])                         # region2 | deceduti
+region2_totale_casi = int(sys.argv[25])                      # region2 | totale_casi
+region2_tamponi = int(sys.argv[26])                          # region2 | tamponi
+
+maxValue = int(sys.argv[27])                                 # maxValue
 
 # Set data
 df = pd.DataFrame({
     'group': ['A', 'B'],
-    'Hospitalized': [(region1_ricoverati_con_sintomi), region2_ricoverati_con_sintomi],
-    'Intensive care': [region1_terapia_intensiva, region2_terapia_intensiva],
-    'All Hospitalized': [region1_totale_ospedalizzati, region2_totale_ospedalizzati],
+    'All cases': [region1_totale_casi, region2_totale_casi],
+    'New infections': [region1_nuovi_positivi, region2_nuovi_positivi],
+    'All infections': [region1_totale_positivi, region2_totale_positivi],
+    'infections variation from prev day': [region1_variazione_totale_positivi, region2_variazione_totale_positivi],
     'In isolation': [region1_isolamento_domiciliare, region2_isolamento_domiciliare],
-    'Infected': [region1_totale_positivi, region2_totale_positivi],
-    'New infected': [region1_nuovi_positivi, region2_nuovi_positivi],
-    'Discharged and healed': [region1_dimessi_guariti, region2_dimessi_guariti],
+    'Intensive care': [region1_terapia_intensiva, region2_terapia_intensiva],
+    'Hospitalized with symptoms': [(region1_ricoverati_con_sintomi), region2_ricoverati_con_sintomi],
+    'All Hospitalized': [region1_totale_ospedalizzati, region2_totale_ospedalizzati],
+    'Discharged and healed today': [region1_dimessi_guariti, region2_dimessi_guariti],
     'Deaths': [region1_deceduti, region2_deceduti],
-    'Total cases': [region1_totale_casi, region2_totale_casi],
-    'All currently infected from prev day': [region1_variazione_totale_positivi, region2_variazione_totale_positivi]
 })
 
 # ------- PART 1: Create background
@@ -119,7 +122,13 @@ ax.fill(angles, values, 'r', alpha=0.1)
 
 # Add legend
 plt.legend(loc='upper right', bbox_to_anchor=(0.07, 1.15))
-plt.xlabel('SickBot by Danilo Mongelli', fontweight='bold')
+plt.xlabel('\nSickBot by Danilo Mongelli', fontweight='bold')
 
-plt.savefig("./charts/generatedImages/radar.png", dpi=(150))
-sys.stdout.flush()
+def randomword(length):
+   letters = string.ascii_lowercase + string.ascii_uppercase
+   return ''.join(random.choice(letters) for i in range(length))
+
+rw = randomword(20)
+imagePath = "./charts/generatedImages/rcRadar_"+rw+".png"
+plt.savefig(imagePath)
+sys.stderr.write(imagePath)

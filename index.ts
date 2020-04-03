@@ -1,5 +1,4 @@
 import "@babel/register";
-const fs = require("fs");
 import { Message } from "discord.js";
 import { config } from "dotenv";
 import { SickBotClient } from "./src/SickBotClient";
@@ -46,28 +45,12 @@ client.on("ready", (): void => {
 
       const cmd: string = args.shift()!.toLocaleLowerCase();
 
-      //Standards Commands
-      if (cmd === "covid help") {
-        helpCommand(message);
-      }
-
-      if (cmd === "covid") {
-        covidCommand(message);
-      }
-
-      if (message.content.includes(PREFIX + "covid r ")) {
-        covidRegionCommand(message);
-      }
-
-      if (message.content.includes(PREFIX + "covid p ")) {
-        covidProvinceCommand(message);
-      }
-
-      //Charts Commands
-      if (message.content.includes(PREFIX + "covid chart r ")) {
-        covidChartRegionStackedBar(message);
-      }
-
+      if (cmd === "covid help") helpCommand(message);
+      if (cmd === "covid") covidCommand(message);
+      if (message.content.includes(PREFIX + "covid r ")) covidRegionCommand(message);
+      if (message.content.includes(PREFIX + "covid p ")) covidProvinceCommand(message);
+      if (message.content.includes(PREFIX + "covid rc sbars ")) covidChartRegionStackedBar(message);
+      if (message.content.includes(PREFIX + "covid rc radar ")) covidChartRegionRadar(message);
       /* devo lavorare sul substring
       if (message.content.includes(PREFIX + "covid cr radar ")) {
         covidChartRegionRadar(message);

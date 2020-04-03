@@ -1,5 +1,6 @@
+const fs = require("fs");
 import { Message, MessageAttachment } from "discord.js";
-import { italyRegions, chartRadar } from "../../../src/ApiControllers"
+import { italyProvince, chartRadar } from "../../../src/ApiControllers"
 import { ItalianRegion } from "../../interfaces";
 
 const covidChartRegionRadar = async (message: Message) => {
@@ -16,11 +17,9 @@ const covidChartRegionRadar = async (message: Message) => {
   const sendData = async (region1, region2) => {
     try {
       const stackedBar = await chartRadar({region1, region2});
-      const {imagePath} = await stackedBar.json();
-      const path = "./backend" + imagePath[0].substring(1);
-
-      path.length > 10
-        ? message.reply(`${message.author},`, new MessageAttachment(path))
+      const buffer = fs.readFileSync('./backend/charts/generatedImages/pcRadar.png');
+       stackedBar.ok == true 
+        ? message.reply(`${message.author},`, new MessageAttachment(buffer))
         : message.reply("Sry, i cant retrieve the image"); 
     } catch(err) {
       console.log(err)
@@ -28,7 +27,7 @@ const covidChartRegionRadar = async (message: Message) => {
   };
 
   try {
-    const result: Array<ItalianRegion> = await italyRegions();
+    const result: Array<ItalianRegion> = await italyProvince();
     const checkFromData = result.filter(item => item.data.substring(0, 10)  === fromDate);
     const checkToDate = result.filter(item => item.data.substring(0, 10) === toDate);
     const region1 = checkFromData.filter(item => item.denominazione_regione.toLowerCase() === requiredRegion())[0];
