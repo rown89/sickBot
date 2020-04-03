@@ -1,21 +1,17 @@
-import { Message, MessageEmbed } from "discord.js";
+import { Message } from "discord.js";
+import { covidHelp } from "../embeddedMessages";
 
 const helpCommand = (message: Message) => {
-  const help = new MessageEmbed()
-    .setTitle("SickBot Commands:")
-    .setColor(0xf8e71c)
-    .setDescription(
-      `
-      !!covid - return last data about Italy.
-      \n!!covid r <region> | Last data about an Italian region.
-      \n!!covid p <province> | return last data about italian Province.
-      \n!!covid rc sbars 2020-03-01 - 2020-03-20 <region> | Build Stacked bars Chart between two dates
-      \n!!covid rc radar 2020-03-01 - 2020-03-20 <region> | Build Radar Chart between two dates
-      `
-    );
-  message.channel.send(help);
+  const helpMsg = [
+    "!!covid",
+    "!!covid r <region>",
+    "!!covid p <province>",
+    "!!covid rc sbars 2020-03-01 - 2020-03-20 <region>",
+    "!!covid rc radar 2020-03-01 - 2020-03-20 <region>",
+    "!!covid pc sbars 2020-03-01 - 2020-03-20 <province>"
+  ];
 
-  return help
+  message.channel.send({ embed: covidHelp("SickBot Help", 0xf8e71c, helpMsg) });
 };
 
 export { helpCommand };

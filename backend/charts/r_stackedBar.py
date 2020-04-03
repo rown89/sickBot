@@ -77,14 +77,12 @@ rect1 = plt.bar(r1, bars1, color='#29b6f6', width=barWidth, edgecolor='white',
 rect2 = plt.bar(r2, bars2, color='#ec407a', width=barWidth, edgecolor='white',
                 label=region2_denominazione_regione + " " + region2_data[:10])
 
-
 def autolabel(rects):
     for rect in rects:
         height = rect.get_height()
         ax.text(rect.get_x() + rect.get_width()/2., 1.05*height,
                 '%d' % int(height),
                 ha='center', va='bottom')
-
 
 autolabel(rect1)
 autolabel(rect2)
@@ -102,7 +100,7 @@ plt.xticks([r + barWidth for r in range(len(bars1))], [
     'All Hospitalized',
     'Discharged and\nHealed today',
     'Deaths'
-    ],color="#009688", size=10),
+    ], color="#009688", size=10),
 
 # Create legend & Show graphic
 plt.legend(loc='upper right', bbox_to_anchor=(0.58, 1.1))

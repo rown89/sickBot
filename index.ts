@@ -8,7 +8,8 @@ import {
   covidRegionCommand,
   covidProvinceCommand,
   covidChartRegionStackedBar,
-  covidChartRegionRadar
+  covidChartRegionRadar,
+  covidChartProvinceStackedBar
 } from "./src/commands";
 
 config({ path: "./.env" });
@@ -51,6 +52,7 @@ client.on("ready", (): void => {
       if (message.content.includes(PREFIX + "covid p ")) covidProvinceCommand(message);
       if (message.content.includes(PREFIX + "covid rc sbars ")) covidChartRegionStackedBar(message);
       if (message.content.includes(PREFIX + "covid rc radar ")) covidChartRegionRadar(message);
+      if (message.content.includes(PREFIX + "covid pc sbars ")) covidChartProvinceStackedBar(message);
       /* devo lavorare sul substring
       if (message.content.includes(PREFIX + "covid cr radar ")) {
         covidChartRegionRadar(message);

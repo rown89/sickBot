@@ -46,6 +46,43 @@ export const color = (word: string, color: string) => {
  * @param item object with covid stats
  */
 
+export const covidHelp = (title: string, color: number, data: any) => {
+  return {
+    title: `${title}`,
+    color: color,
+    thumbnail: {
+      url: "http://danilomongelli.it/sickBot/assets/COVID-19-Logo.png"
+    },
+    fields: [
+      {
+        name: "Last data about Italy:",
+        value: data[0],
+      },
+      {
+        name: "Last data about picked Italian Region:",
+        value: data[1],
+      },
+      {
+        name: "Last data about picked Italian Province:",
+        value: data[2],
+      },
+      {
+        name: "Stacked Bar Chart with Region data between two dates:",
+        value: data[3],
+      },
+      {
+        name: "Radar Chart with Region data between two dates",
+        value: data[4],
+      },
+      {
+        name: "Stacked Bar Chart with Province data between two dates:",
+        value: data[5],
+      },
+    ]
+  };
+};
+
+
 export const covidMessage = (title: string, color: number, data: any) => {
   console.log(data);
   const item = data;

@@ -16,7 +16,7 @@ app.post("/buildChart/region/stackedBar", (req, res) => {
       const maxValue =
         region1.tamponi >= region2.tamponi ? region1.tamponi : region2.tamponi;
       const python = spawn("python", [
-        "./charts/stackedBar.py",
+        "./charts/r_stackedBar.py",
         region1.data,
         region1.denominazione_regione,
         region1.ricoverati_con_sintomi,
@@ -80,7 +80,7 @@ app.post("/buildChart/region/radar", (req, res) => {
       const maxValue =
         region1.tamponi >= region2.tamponi ? region1.tamponi : region2.tamponi;
       const python = spawn("python", [
-        "./charts/radar.py",
+        "./charts/r_radar.py",
         region1.data,
         region1.denominazione_regione,
         region1.ricoverati_con_sintomi,
@@ -107,6 +107,49 @@ app.post("/buildChart/region/radar", (req, res) => {
         region2.deceduti,
         region2.totale_casi,
         region2.tamponi,
+        maxValue
+      ]);
+      
+      let imagePath = [];
+      python.stdout.on("data", data => {
+        console.log(data);
+      });
+      python.stderr.on("data", data => {return imagePath.push(data.toString())});
+
+      python.on("close", code => {
+        res.send({imagePath});
+        setTimeout(() => {
+          (async () => {
+            try {
+              await fs.unlink(imagePath[0]);
+            } catch (e) {
+              console.log("error",e);
+            }
+          })();
+        }, 1000);
+        console.log(`child process close all stdio with code ${code}`);
+      });
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  } else res.send("Something went wrong with the data in radar Post Data");
+});
+
+app.post("/buildChart/province/stackedBar", (req, res) => {
+  const { province1, province2 } = req.body;
+  if (province1 && province2) {
+    try {
+      const maxValue =
+      province1.totale_casi >= province2.totale_casi ? province1.totale_casi : province2.totale_casi;
+      const python = spawn("python", [
+        "./charts/p_stackedBar.py",
+        province1.data,
+        province1.denominazione_provincia,
+        province1.totale_casi,
+        province2.data,
+        province2.denominazione_provincia,
+        province2.totale_casi,
         maxValue
       ]);
       
