@@ -11,7 +11,7 @@ const covidRegionCommand = async (message: Message) => {
     .then(sentMessage => sentMessage.delete({ timeout: 2000 }));
   try {
     const result: Array<ItalianRegionLatests> = await italyRegionsLatest();
-    const printResult: any = result.filter(item => {
+    const printResult = result.filter(item => {
       return item.denominazione_regione.toLowerCase() === requiredRegion;
     });
     printResult

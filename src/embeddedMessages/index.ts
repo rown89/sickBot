@@ -46,7 +46,7 @@ export const color = (word: string, color: string) => {
  * @param item object with covid stats
  */
 
-export const covidHelp = (title: string, color: number, data: any) => {
+export const covidHelp = (title: string, color: number, data) => {
   return {
     title: `${title}`,
     color: color,
@@ -83,8 +83,7 @@ export const covidHelp = (title: string, color: number, data: any) => {
 };
 
 
-export const covidMessage = (title: string, color: number, data: any) => {
-  console.log(data);
+export const covidMessage = (title: string, color: number, data) => {
   const item = data;
   return {
     title: `${title}`,
@@ -154,7 +153,7 @@ export const covidMessage = (title: string, color: number, data: any) => {
   };
 };
 
-export const covidProvince = (title: string, color: number, data: any) => {
+export const covidProvince = (title: string, color: number, data) => {
   const item = data;
   return {
     title: `${title}`,

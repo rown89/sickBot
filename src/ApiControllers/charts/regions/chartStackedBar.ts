@@ -19,7 +19,7 @@ async function chartStackedBar(regions) {
         body: JSON.stringify(regions),
       }
     );
-    let result: any = await call;
+    let result = await call;
     return result;
   } catch (error) {
     console.log("Error in Chart ApiControllers\n", error);
