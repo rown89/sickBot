@@ -1,7 +1,7 @@
 # sickBot
 
 Start SickBot:
-pm2 start ecosystem.config.js --env production.
+pm2 start ecosystem.config.js --env production --name sickBot
 
 Start Backend
-npm start
+pm2 start start.js --name sickBot_backend
