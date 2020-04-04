@@ -57,6 +57,6 @@ def randomword(length):
    return ''.join(random.choice(letters) for i in range(length))
 
 rw = randomword(20)
-imagePath = "./charts/generatedImages/pcStackedBar_"+rw+".png"
+imagePath = "./charts/images/pcStackedBar_"+rw+".png"
 plt.savefig(imagePath)
 sys.stderr.write(imagePath)
