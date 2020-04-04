@@ -18,7 +18,7 @@ const covidChartProvinceStackedBar = async (message: Message) => {
       const path = "./backend" + imagePath[0].substring(1);
 
       path.length > 10
-        ? message.reply(`${message.author},`, new MessageAttachment(path))
+        ? message.reply(new MessageAttachment(path))
         : message.reply("Sry, i cant retrieve the image"); 
     } catch(err) {
       console.log(err)
