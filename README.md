@@ -1,13 +1,13 @@
 # sickBot
 
-Start SickBot:
+SickBot:
 
 pm2 install typescript
 
 pm2 start ecosystem.config.js --env production --name sickBot
 
 
-Start Backend
+SickBot Backend:
 
 pm2 start start.js --name sickBot_backend
 
