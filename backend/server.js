@@ -5,6 +5,7 @@ const { spawn } = require("child_process");
 
 const app = express();
 const port = 4200;
+const deleteImagesTime = 2000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -62,7 +63,7 @@ app.post("/buildChart/region/stackedBar", (req, res) => {
               console.log("error",e);
             }
           })();
-        }, 1000);
+        }, deleteImagesTime);
         console.log(`child process close all stdio with code ${code}`);
       });
     } catch (error) {
@@ -126,7 +127,7 @@ app.post("/buildChart/region/radar", (req, res) => {
               console.log("error",e);
             }
           })();
-        }, 1000);
+        }, deleteImagesTime);
         console.log(`child process close all stdio with code ${code}`);
       });
     } catch (error) {
@@ -169,7 +170,7 @@ app.post("/buildChart/province/stackedBar", (req, res) => {
               console.log("error",e);
             }
           })();
-        }, 1000);
+        }, deleteImagesTime);
         console.log(`child process close all stdio with code ${code}`);
       });
     } catch (error) {
