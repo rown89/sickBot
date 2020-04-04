@@ -5,7 +5,7 @@ const { spawn } = require("child_process");
 
 const app = express();
 const port = 4200;
-const deleteImagesTime = 2000;
+const deleteImagesTime = 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -1,46 +1,4 @@
 /**
- * @param word Choosen word to colorize
- * @param color Choosen Color
- */
-
-export const color = (word: string, color: string) => {
-  switch (color) {
-    case "yellow":
-      () => {
-        return " `HTTP` " + word + "`";
-      };
-      break;
-    case "cyan":
-      () => {
-        return " `YAML` " + word + "`";
-      };
-      break;
-    case "red":
-      () => {
-        return " `excel` " + word + "`";
-      };
-      break;
-    case "blue":
-      () => {
-        return " `Elm` " + word + "`";
-      };
-      break;
-    case "orange":
-      () => {
-        return " `ARM` " + word + "`";
-      };
-      break;
-    case "green":
-      () => {
-        return " `CSS` " + word + "`";
-      };
-      break;
-    default:
-      break;
-  }
-};
-
-/**
  * @param title Choosen word to colorize
  * @param color Choosen Color
  * @param item object with covid stats
