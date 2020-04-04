@@ -45,7 +45,7 @@ df = pandas.DataFrame({
     'In isolation': [region1_isolamento_domiciliare, region2_isolamento_domiciliare],
     'Intensive care': [region1_terapia_intensiva, region2_terapia_intensiva],
     'Hospitalized with symptoms': [(region1_ricoverati_con_sintomi), region2_ricoverati_con_sintomi],
-    'All Hospitalized': [region1_totale_ospedalizzati, region2_totale_ospedalizzati],
+    'All hospitalized': [region1_totale_ospedalizzati, region2_totale_ospedalizzati],
     'Discharged and healed today': [region1_dimessi_guariti, region2_dimessi_guariti],
     'Deaths': [region1_deceduti, region2_deceduti],
 })

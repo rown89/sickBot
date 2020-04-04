@@ -16,7 +16,7 @@ app.post("/buildChart/region/stackedBar", (req, res) => {
       const maxValue =
         region1.tamponi >= region2.tamponi ? region1.tamponi : region2.tamponi;
       const python = spawn("python", [
-        "r_stackedBar.py",
+        "./charts/r_stackedBar.py",
         region1.data,
         region1.denominazione_regione,
         region1.ricoverati_con_sintomi,
@@ -48,7 +48,7 @@ app.post("/buildChart/region/stackedBar", (req, res) => {
       
       let imagePath = [];
       python.stdout.on("data", data => {
-        console.log(data);
+        console.log(data.toString());
       });
       python.stderr.on("data", data => {return imagePath.push(data.toString())});
 
@@ -80,7 +80,7 @@ app.post("/buildChart/region/radar", (req, res) => {
       const maxValue =
         region1.tamponi >= region2.tamponi ? region1.tamponi : region2.tamponi;
       const python = spawn("python", [
-        "r_radar.py",
+        "./charts/r_radar.py",
         region1.data,
         region1.denominazione_regione,
         region1.ricoverati_con_sintomi,
@@ -143,7 +143,7 @@ app.post("/buildChart/province/stackedBar", (req, res) => {
       const maxValue =
       province1.totale_casi >= province2.totale_casi ? province1.totale_casi : province2.totale_casi;
       const python = spawn("python", [
-        "p_stackedBar.py",
+        "./charts/p_stackedBar.py",
         province1.data,
         province1.denominazione_provincia,
         province1.totale_casi,

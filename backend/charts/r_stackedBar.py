@@ -3,7 +3,8 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-import sys, os
+import sys
+import os
 import random, string
 
 region1_data = sys.argv[1]                                   # region1 | data
@@ -95,10 +96,10 @@ plt.xticks([r + barWidth for r in range(len(bars1))], [
     'All infections',
     'infections\nvariation from\n prev day',
     'In isolation',
-    'Intensive\nCare',
+    'Intensive\ncare',
     'Hospitalized\nwith symptoms',
-    'All Hospitalized',
-    'Discharged and\nHealed today',
+    'All hospitalized',
+    'Discharged and\nhealed today',
     'Deaths'
     ], color="#009688", size=10),
 
@@ -111,6 +112,6 @@ def randomword(length):
    return ''.join(random.choice(letters) for i in range(length))
 
 rw = randomword(20)
-imagePath = "./charts/generatedImages/rcStackedBar_"+rw+".png"
+imagePath = ".\\charts\\generatedImages\\rcStackedBar_"+rw+".png"
 plt.savefig(imagePath)
 sys.stderr.write(imagePath)
