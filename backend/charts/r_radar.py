@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import pandas as pd
+import pandas
 import numpy as np
 from math import pi
 import sys, os
@@ -36,7 +36,7 @@ region2_tamponi = int(sys.argv[26])                          # region2 | tamponi
 maxValue = int(sys.argv[27])                                 # maxValue
 
 # Set data
-df = pd.DataFrame({
+df = pandas.DataFrame({
     'group': ['A', 'B'],
     'All cases': [region1_totale_casi, region2_totale_casi],
     'New infections': [region1_nuovi_positivi, region2_nuovi_positivi],
