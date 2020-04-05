@@ -48,26 +48,24 @@ app.post("/buildChart/region/stackedBar", (req, res) => {
       ]);
       
       let imagePath = [];
-      python.stdout.on("data", data => {
-        console.log(data.toString());
-      });
-      python.stderr.on("data", data => {return imagePath.push(data.toString())});
+      python.stdout.on("data", data => {return imagePath.push(data.toString())});
+      python.stderr.on("data", data => console.log(data));
 
       python.on("close", code => {
         res.send({imagePath});
         setTimeout(() => {
           (async () => {
             try {
-              await fs.unlink(imagePath[0]);
+              if(imagePath.length > 0) await fs.unlink(imagePath[0]);
             } catch (e) {
-              console.log("error",e);
+              console.log("error in setTimeout region/stackedBar ", e);
             }
           })();
         }, deleteImagesTime);
         console.log(`child process close all stdio with code ${code}`);
       });
     } catch (error) {
-      console.log(error);
+      console.log("error in region/stackedBar", error);
       return error;
     }
   } else res.send("Something went wrong with the data in stackedBar Post Data");
@@ -112,26 +110,24 @@ app.post("/buildChart/region/radar", (req, res) => {
       ]);
       
       let imagePath = [];
-      python.stdout.on("data", data => {
-        console.log(data);
-      });
-      python.stderr.on("data", data => {return imagePath.push(data.toString())});
+      python.stdout.on("data", data => {return imagePath.push(data.toString())});
+      python.stderr.on("data", data => console.log(data.toString()));
 
       python.on("close", code => {
         res.send({imagePath});
         setTimeout(() => {
           (async () => {
             try {
-              await fs.unlink(imagePath[0]);
+              if(imagePath.length > 0) await fs.unlink(imagePath[0]);
             } catch (e) {
-              console.log("error",e);
+              console.log("error in setTimeout region/radar ", e);
             }
           })();
         }, deleteImagesTime);
         console.log(`child process close all stdio with code ${code}`);
       });
     } catch (error) {
-      console.log(error);
+      console.log("error in region/radar", error);
       return error;
     }
   } else res.send("Something went wrong with the data in radar Post Data");
@@ -155,26 +151,24 @@ app.post("/buildChart/province/stackedBar", (req, res) => {
       ]);
       
       let imagePath = [];
-      python.stdout.on("data", data => {
-        console.log(data);
-      });
-      python.stderr.on("data", data => {return imagePath.push(data.toString())});
+      python.stdout.on("data", data => {return imagePath.push(data.toString())});
+      python.stderr.on("data", data => console.log(data.toString()));
 
       python.on("close", code => {
         res.send({imagePath});
         setTimeout(() => {
           (async () => {
             try {
-              await fs.unlink(imagePath[0]);
+              if(imagePath.length > 0) await fs.unlink(imagePath[0]);
             } catch (e) {
-              console.log("error",e);
+              console.log("error in setTimeout province/stackedBar ", e);
             }
           })();
         }, deleteImagesTime);
         console.log(`child process close all stdio with code ${code}`);
       });
     } catch (error) {
-      console.log(error);
+      console.log("error in province/stackedBar", error);
       return error;
     }
   } else res.send("Something went wrong with the data in radar Post Data");

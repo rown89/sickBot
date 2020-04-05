@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt
 import pandas
 import numpy as np
 from math import pi
-import sys, os
+import sys
 import random, string
 
 region1_data = sys.argv[1]                                   # region1 | data
@@ -129,6 +129,6 @@ def randomword(length):
    return ''.join(random.choice(letters) for i in range(length))
 
 rw = randomword(20)
-imagePath = "./charts/images/rcRadar_"+rw+".png"
+imagePath = str("./charts/images/rcRadar_"+rw+".png")
 plt.savefig(imagePath)
-sys.stderr.write(imagePath)
+sys.stdout.write(imagePath)

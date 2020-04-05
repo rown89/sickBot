@@ -17,11 +17,12 @@ const covidChartRegionRadar = async (message: Message) => {
     try {
       const radar = await chartRadar({region1, region2});
       const {imagePath} = await radar.json();
-      const path = "./backend" + imagePath[0].substring(1);
+      let path = "./backend" + imagePath[0].substring(1);
 
       path.length > 10
-        ? message.reply(new MessageAttachment(path))
-        : message.reply("Sry, i cant retrieve the image"); 
+      ? message.reply(new MessageAttachment(path))
+      : message.reply("Sry, i cant retrieve the image"); 
+    
     } catch(err) {
       console.log(err)
     };
