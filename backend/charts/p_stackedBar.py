@@ -50,7 +50,7 @@ plt.xticks([r + barWidth for r in range(len(bars1))], ['All cases'], color="#009
 
 # Create legend & Show graphic
 plt.legend(loc='upper right', bbox_to_anchor=(0.58, 1.1))
-fig.set_size_inches(14, 10)
+fig.set_size_inches(16, 12)
 
 def randomword(length):
    letters = string.ascii_lowercase + string.ascii_uppercase
