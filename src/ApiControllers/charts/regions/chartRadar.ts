@@ -2,14 +2,13 @@ import fetch, { Response } from "node-fetch";
 import { config } from "dotenv";
 
 config({ path: "../../.env" });
-const { CHART_PROD_URL, CHART_DEV_URL } = process.env;
 
 async function chartRadar(regions) {
   try {
     let call: Response = await fetch(
       process.env.NODE_ENV === "production"
-        ? new URL("http://euve264410.serverprofi24.net:4200/buildChart/region/radar")
-        : new URL("http://localhost:4200/buildChart/region/radar"),
+        ? new URL(process.env.CHART_PROD_REGION_RADAR_URL!)
+        : new URL(process.env.CHART_DEV_REGION_RADAR_URL!),
       {
         method: "POST",
         headers: {

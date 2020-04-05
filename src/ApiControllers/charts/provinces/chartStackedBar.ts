@@ -2,14 +2,13 @@ import fetch, { Response } from "node-fetch";
 import { config } from "dotenv";
 
 config({ path: "../../../.env" });
-//const { CHART_PROD_URL, CHART_DEV_URL } = process.env;
 
 async function chartProvinceStackedBar(province) {
   try {
     let call: Response = await fetch(
       process.env.NODE_ENV === "production"
-        ? new URL("http://euve264410.serverprofi24.net:4200/buildChart/province/stackedBar")
-        : new URL("http://localhost:4200/buildChart/province/stackedBar"),
+        ? new URL(process.env.CHART_PROD_PROVINCE_STACKEDBAR_URL!)
+        : new URL(process.env.CHART_DEV_PROVINCE_STACKEDBAR_URL!),
       {
         method: "POST",
         headers: {

@@ -63,7 +63,7 @@ angles = [n / float(N) * 2 * pi for n in range(N)]
 angles += angles[:1]
 
 # Initialise the spider plot
-fig = plt.figure(figsize=(24, 23))
+fig = plt.figure(figsize=(24, 25))
 ax = plt.subplot(111, polar=True)
 
 # If you want the first axis to be on top:
@@ -132,5 +132,5 @@ def randomword(length):
 
 rw = randomword(20)
 imagePath = str("./charts/images/rcRadar_"+rw+".png")
-plt.savefig(imagePath, dpi=100)
+plt.savefig(imagePath, dpi=90)
 sys.stdout.write(imagePath)

@@ -113,5 +113,5 @@ def randomword(length):
 
 rw = randomword(20)
 imagePath = "./charts/images/rcStackedBar_"+rw+".png"
-plt.savefig(imagePath, dpi=100)
+plt.savefig(imagePath, dpi=90)
 sys.stdout.write(imagePath)
