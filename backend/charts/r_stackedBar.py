@@ -105,7 +105,7 @@ plt.xticks([r + barWidth for r in range(len(bars1))], [
 
 # Create legend & Show graphic
 plt.legend(loc='upper right', bbox_to_anchor=(0.58, 1.1))
-fig.set_size_inches(18.5, 10.5)
+fig.set_size_inches(16, 10)
 
 def randomword(length):
    letters = string.ascii_lowercase + string.ascii_uppercase
@@ -113,5 +113,5 @@ def randomword(length):
 
 rw = randomword(20)
 imagePath = "./charts/images/rcStackedBar_"+rw+".png"
-plt.savefig(imagePath)
+plt.savefig(imagePath, dpi=95)
 sys.stdout.write(imagePath)
