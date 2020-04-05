@@ -43,19 +43,19 @@ df = pandas.DataFrame({
     'All cases': [region1_totale_casi, region2_totale_casi],
     'New infections': [region1_nuovi_positivi, region2_nuovi_positivi],
     'All infections': [region1_totale_positivi, region2_totale_positivi],
-    'infections variation from prev day': [region1_variazione_totale_positivi, region2_variazione_totale_positivi],
+    'infections\nvariation\nfrom prev\nday': [region1_variazione_totale_positivi, region2_variazione_totale_positivi],
     'In isolation': [region1_isolamento_domiciliare, region2_isolamento_domiciliare],
     'Intensive care': [region1_terapia_intensiva, region2_terapia_intensiva],
-    'Hospitalized with symptoms': [(region1_ricoverati_con_sintomi), region2_ricoverati_con_sintomi],
+    'Hospitalized\nwith symptoms': [(region1_ricoverati_con_sintomi), region2_ricoverati_con_sintomi],
     'All hospitalized': [region1_totale_ospedalizzati, region2_totale_ospedalizzati],
-    'Discharged and healed today': [region1_dimessi_guariti, region2_dimessi_guariti],
+    'Discharged\nand healed\ntoday': [region1_dimessi_guariti, region2_dimessi_guariti],
     'Deaths': [region1_deceduti, region2_deceduti],
 })
 
 # ------- PART 1: Create background
 
 # number of variable
-categories = list(df)[1:]
+categories = df.columns.drop('group').tolist()
 N = len(categories)
 
 # What will be the angle of each axis in the plot? (we divide the plot / number of variable)
@@ -63,7 +63,7 @@ angles = [n / float(N) * 2 * pi for n in range(N)]
 angles += angles[:1]
 
 # Initialise the spider plot
-fig = plt.figure(figsize=(17, 14))
+fig = plt.figure(figsize=(20, 21))
 ax = plt.subplot(111, polar=True)
 
 # If you want the first axis to be on top:
@@ -100,8 +100,8 @@ ax.set_rlabel_position(0)
 
 ticks = np.linspace(0, 2*np.pi, 20, endpoint=False)
 
-plt.xticks(color="#0288d1", size=10)
-plt.yticks(color="#009688", size=8)
+plt.xticks(color="#0288d1", size=14)
+plt.yticks(color="#009688", size=12)
 
 # ------- PART 2: Add plots
 
@@ -123,7 +123,7 @@ ax.plot(angles, values, linewidth=0.8, linestyle='solid',
 ax.fill(angles, values, 'r', alpha=0.1)
 
 # Add legend
-plt.legend(loc='upper right', bbox_to_anchor=(0.07, 1.15))
+plt.legend(loc='upper right', bbox_to_anchor=(0.01, 1.10))
 plt.xlabel('\nSickBot by Danilo Mongelli', fontweight='bold')
 
 def randomword(length):
