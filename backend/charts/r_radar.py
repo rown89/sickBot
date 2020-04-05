@@ -63,7 +63,7 @@ angles = [n / float(N) * 2 * pi for n in range(N)]
 angles += angles[:1]
 
 # Initialise the spider plot
-fig = plt.figure(figsize=(19, 19))
+fig = plt.figure(figsize=(21, 21))
 ax = plt.subplot(111, polar=True)
 
 # If you want the first axis to be on top:
