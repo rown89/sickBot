@@ -3,7 +3,7 @@ import { config } from "dotenv";
 
 config({ path: "../../.env" });
 
-async function chartRadar(regions) {
+async function chartRadar(regions: object): Promise<Object> {
   try {
     let call: Response = await fetch(
       process.env.NODE_ENV === "production"

@@ -3,7 +3,7 @@ import { covidMessage } from "../embeddedMessages";
 import { italyLatest } from "../../src/ApiControllers";
 import { ItalianLatests } from "../../src/interfaces";
 
-const covidCommand = async (message: Message) => {
+const covidCommand = async (message: Message): Promise<Message> => {
   const covid = message
     .reply(" retrieving Italian stats...")
     .then(sentMessage => sentMessage.delete({ timeout: 2000 }));

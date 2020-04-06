@@ -4,7 +4,7 @@
  * @param item object with covid stats
  */
 
-export const covidHelp = (title: string, color: number, data) => {
+export const covidHelp = (title: string, color: number, data): Object => {
   return {
     title: `${title}`,
     color: color,
@@ -41,7 +41,7 @@ export const covidHelp = (title: string, color: number, data) => {
 };
 
 
-export const covidMessage = (title: string, color: number, data) => {
+export const covidMessage = (title: string, color: number, data): Object => {
   const item = data;
   return {
     title: `${title}`,
@@ -111,7 +111,7 @@ export const covidMessage = (title: string, color: number, data) => {
   };
 };
 
-export const covidProvince = (title: string, color: number, data) => {
+export const covidProvince = (title: string, color: number, data): Object => {
   const item = data;
   return {
     title: `${title}`,

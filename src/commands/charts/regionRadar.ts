@@ -2,7 +2,7 @@ import { Message, MessageAttachment } from "discord.js";
 import { italyRegions, chartRadar } from "../../../src/ApiControllers"
 import { ItalianRegion } from "../../interfaces";
 
-const covidChartRegionRadar = async (message: Message) => {
+const covidChartRegionRadar = async (message: Message): Promise<void> => {
   const requiredRegion = () => {
     const region = message.content.substring(41).toLowerCase();
     if (region === "emilia romagna" || region === "Emilia romagna" || region === "Emilia Romagna" || region === "emilia Romagna"){

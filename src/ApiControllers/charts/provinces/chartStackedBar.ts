@@ -3,7 +3,7 @@ import { config } from "dotenv";
 
 config({ path: "../../../.env" });
 
-async function chartProvinceStackedBar(province) {
+async function chartProvinceStackedBar(province: object): Promise<Object> {
   try {
     let call: Response = await fetch(
       process.env.NODE_ENV === "production"

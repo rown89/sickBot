@@ -3,7 +3,7 @@ import { covidProvince } from "../embeddedMessages";
 import { italyProvinceLatest } from "../ApiControllers";
 import { ItalianProvinceLatests } from "../interfaces";
 
-const covidProvinceCommand = async (message: Message) => {
+const covidProvinceCommand = async (message: Message): Promise<Message> => {
   const requiredProvince = message.content.substring(10).toLowerCase();
 
   const covidProvinceMsg = message

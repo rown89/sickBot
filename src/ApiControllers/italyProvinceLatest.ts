@@ -3,7 +3,7 @@ import { config } from "dotenv";
 
 config({ path: "../../.env" });
 
-async function italyProvinceLatest() {
+async function italyProvinceLatest(): Promise<Object> {
   try {
     let call: Response = await fetch(process.env.ITALY_PROVINCE_LATEST!);
     let result: Object = await call.json();

@@ -1,7 +1,7 @@
 import { Message } from "discord.js";
 import { covidHelp } from "../embeddedMessages";
 
-const helpCommand = (message: Message) => {
+const helpCommand = (message: Message): void => {
   const helpMsg = [
     "!!covid",
     "!!covid r <region>",
