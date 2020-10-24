@@ -1,12 +1,13 @@
 # SickBot
 
-Discord Bot handle Italian covid data provided by Protezione civile. This bot use Python and matplotlib to dynamically generate stackedbar and radar charts images of the data.
+Discord Bot to handle Italian covid data provided by Protezione civile. This bot use Python and matplotlib to dynamically generate stackedbar and radar charts images of the data.
 
-* Code is provided as an example, without an .env file you cant run this project. *
+* Code is provided as an example, without an .env file you cant run this project.
+
 
 pm2 install typescript
 
-Start Bot interface
+Start Bot interface:
 pm2 start ecosystem.config.js --env production --name sickBot
 
 Start Bot Backend:
