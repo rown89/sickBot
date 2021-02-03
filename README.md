@@ -17,15 +17,21 @@ Create a new forder images in backend/charts/
 
 
 # SickBot Command Help:
+
 Last data about Italy:
 !!covid
+
 Last data about picked Italian Region:
 !!covid r <region>
+  
 Last data about picked Italian Province:
 !!covid p <province>
+  
 Stacked Bar Chart with Region data between two dates:
 !!covid rc sbars 2020-03-01 - 2020-03-20 <region>
+  
 Radar Chart with Region data between two dates
 !!covid rc radar 2020-03-01 - 2020-03-20 <region>
+  
 Stacked Bar Chart with Province data between two dates:
 !!covid pc sbars 2020-03-01 - 2020-03-20 <province>
