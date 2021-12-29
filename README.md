@@ -16,8 +16,9 @@ Start Bot Backend:
 pm2 start start.js --name sickBot_backend
 ```
 - Step 2
-Then create a new forder images in backend/charts/
-
+```
+Create a new forder images in backend/charts/
+```
 
 # SickBot Command Help:
 
